@@ -198,6 +198,27 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201310010824562_InitialCreate.cs" />
+    <Compile Include="Migrations\201310010824562_InitialCreate.Designer.cs">
+      <DependentUpon>201310010824562_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201310011803441_Initial.cs" />
+    <Compile Include="Migrations\201310011803441_Initial.Designer.cs">
+      <DependentUpon>201310011803441_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201310011811468_Initial1.cs" />
+    <Compile Include="Migrations\201310011811468_Initial1.Designer.cs">
+      <DependentUpon>201310011811468_Initial1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201310011837054_AddDistanceSchedulePrice.cs" />
+    <Compile Include="Migrations\201310011837054_AddDistanceSchedulePrice.Designer.cs">
+      <DependentUpon>201310011837054_AddDistanceSchedulePrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201310011839293_AddDistanceSchedulePrice1.cs" />
+    <Compile Include="Migrations\201310011839293_AddDistanceSchedulePrice1.Designer.cs">
+      <DependentUpon>201310011839293_AddDistanceSchedulePrice1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Flight.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -279,6 +300,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201310010824562_InitialCreate.resx">
+      <DependentUpon>201310010824562_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310011803441_Initial.resx">
+      <DependentUpon>201310011803441_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310011811468_Initial1.resx">
+      <DependentUpon>201310011811468_Initial1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310011837054_AddDistanceSchedulePrice.resx">
+      <DependentUpon>201310011837054_AddDistanceSchedulePrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310011839293_AddDistanceSchedulePrice1.resx">
+      <DependentUpon>201310011839293_AddDistanceSchedulePrice1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
