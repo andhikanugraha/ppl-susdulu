@@ -122,7 +122,7 @@ namespace SusDulu.Controllers
 
         public ActionResult SearchIndex(string flightOrigin, string flightDestination, string flightSchedule)
         {
-            //System.Console.WriteLine("SONMANURUNG");
+            Debug.WriteLine("pesan tiket clicked");
             Debug.WriteLine("schedule: "+flightSchedule);
             DateTime dt = new DateTime();
             if (!string.IsNullOrEmpty(flightSchedule))
