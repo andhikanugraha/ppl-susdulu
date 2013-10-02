@@ -17,6 +17,8 @@ namespace SusDulu.Models
         [Required]
         public string destination { get; set; }
         public Int32 distance { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime schedule { get; set; }
 
         public string level { get; set; }
