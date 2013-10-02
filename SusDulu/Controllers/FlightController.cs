@@ -11,14 +11,15 @@ namespace SusDulu.Controllers
 {
     public class FlightController : Controller
     {
-        private FlightDBContext db = new FlightDBContext();
+        private FlightDBContext flight_db = new FlightDBContext();
+        private SusDuluDbContext db = new SusDuluDbContext();
 
         //
         // GET: /Flight/
 
         public ActionResult Index()
         {
-            return View(db.Flights.ToList());
+            return View(flight_db.Flights.ToList());
         }
 
         //
@@ -26,7 +27,7 @@ namespace SusDulu.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Flight flight = db.Flights.Find(id);
+            Flight flight = flight_db.Flights.Find(id);
             if (flight == null)
             {
                 return HttpNotFound();
@@ -50,8 +51,8 @@ namespace SusDulu.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Flights.Add(flight);
-                db.SaveChanges();
+                flight_db.Flights.Add(flight);
+                flight_db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -63,7 +64,7 @@ namespace SusDulu.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Flight flight = db.Flights.Find(id);
+            Flight flight = flight_db.Flights.Find(id);
             if (flight == null)
             {
                 return HttpNotFound();
@@ -79,8 +80,8 @@ namespace SusDulu.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(flight).State = EntityState.Modified;
-                db.SaveChanges();
+                flight_db.Entry(flight).State = EntityState.Modified;
+                flight_db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(flight);
@@ -91,7 +92,7 @@ namespace SusDulu.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Flight flight = db.Flights.Find(id);
+            Flight flight = flight_db.Flights.Find(id);
             if (flight == null)
             {
                 return HttpNotFound();
@@ -105,16 +106,60 @@ namespace SusDulu.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Flight flight = db.Flights.Find(id);
-            db.Flights.Remove(flight);
-            db.SaveChanges();
+            Flight flight = flight_db.Flights.Find(id);
+            flight_db.Flights.Remove(flight);
+            flight_db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        //
+        // GET: /Flight/SeacrhTicket
+
+        public ActionResult SearchTicket()
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            flight_db.Dispose();
             base.Dispose(disposing);
+        }
+
+        //
+        // POST: /Flight/PrintTicket
+
+        [HttpPost]
+        public ActionResult PrintTicket(string id_ticket)
+        {
+            var ticketList = new List<Ticket>();
+            var flightList = new List<Flight>();
+            var forList = new List<For>();
+
+            var ticketQuery = from ticket in db.ticket
+                              select ticket;
+            ticketQuery = ticketQuery.Where(t => t.Id_ticket.Equals(id_ticket));
+            ticketList.AddRange(ticketQuery);
+
+            if (ticketList.Count > 0)
+            {
+                var forQuery = from _for in db.For
+                               select _for;
+                forQuery = forQuery.Where(f => f.Id_ticket.Equals(id_ticket));
+                forList.AddRange(forQuery);
+                string idFlight = forList[0].Id_flight;
+
+                var flightQuery = from flight in db.flight
+                                  select flight;
+                flightQuery = flightQuery.Where(f => f.Id_flight.Equals(idFlight));
+                flightList.AddRange(flightQuery);
+
+                return View(new FlightTicket() { flight = flightList[0], ticket = ticketList[0]});
+            }
+            else 
+            {
+                return HttpNotFound();
+            }
         }
 
         public ActionResult SearchIndex(string flightOrigin, string flightDestination)
@@ -123,20 +168,20 @@ namespace SusDulu.Controllers
             var DestinationList = new List<string>();
 
             //            buat select list
-            var OriginQry = from o in db.Flights
+            var OriginQry = from o in flight_db.Flights
                             orderby o.origin
                             select o.origin;
             OriginList.AddRange(OriginQry.Distinct());
             ViewBag.flightOrigin = new SelectList(OriginList);
 
-            var DestinationQry = from d in db.Flights
+            var DestinationQry = from d in flight_db.Flights
                                  orderby d.destination
                                  select d.destination;
             DestinationList.AddRange(DestinationQry.Distinct());
             ViewBag.flightDestination = new SelectList(DestinationList);
 
             //            mekanisme seleksi
-            var flights = from f in db.Flights
+            var flights = from f in flight_db.Flights
                           select f;
 
             if (!String.IsNullOrEmpty(flightOrigin))

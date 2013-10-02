@@ -7,15 +7,17 @@
     <link href="~/Content/img/favicon.png" rel="shortcut icon">
     <link href="~/Content/css/style.css" rel="stylesheet" media="screen">
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/Scripts/modernizr")
-    @Scripts.Render("~/Scripts/jquery")
+    @Scripts.Render("~/Scripts/modernizr-2.6.2.js")
+    @Scripts.Render("~/Scripts/jquery-2.0.3.js")
 </head>
 <body>
     <div class="container">
         <div class="site-header">
             <img src="~/Content/img/masthead.png">
         </div>
+        <section class="content-wrapper main-content clear-fix">
         @RenderBody()
+        </section>
         <footer class="site-footer">
             <p>Hak cipta &copy; 2013 Airlangga Airlines.</p>
             <p><a href="#">Kebijakan privasi</a> &nbsp;&nbsp; <a href="#">Ketentuan penggunaan</a></p>
