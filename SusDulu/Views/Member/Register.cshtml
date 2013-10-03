@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Daftar";
+}
+<h1 class="page-header">Pendaftaran Anggota</h1>
+<div class="row">
+    <div class="span4 reg-intro">
+        <p class="lead">Untuk memanfaatkan fitur-fitur online Airlangga Airlines, silakan mendaftar terlebih dahulu di laman ini.</p>
+        <p>Dengan mendaftar, Anda dapat:</p>
+        <ul>
+            <li>Memesan tiket secara online</li>
+            <li>Melakukan online check-in</li>
+            <li>dst.</li>
+        </ul>
+    </div>
+    <div class="span8">
+        @using (Html.BeginForm("Register", "Member", FormMethod.Post, new { @class = "form-horizontal reg-form" })) 
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <fieldset>
+                <legend>Formulir Pendaftaran</legend>
+                <div class="control-group">
+                    <label class="control-label">Email</label>
+                    <div class="controls">
+                        <input type="text" name="email">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Password</label>
+                    <div class="controls">
+                        <input type="password" name="password">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Ulangi Password</label>
+                    <div class="controls">
+                        <input type="password" name="confirm_password">
+                    </div>
+                </div>
+                <input type="hidden" name="distance_traveled" value="0">
+            </fieldset>
+
+            <fieldset>
+                <legend>Informasi Pribadi</legend>
+                <div class="control-group">
+                    <label class="control-label">Nama</label>
+                    <div class="controls">
+                        <input type="text" name="name">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Alamat Rumah</label>
+                    <div class="controls">
+                        <textarea name="address"></textarea>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Nomor Telepon</label>
+                    <div class="controls">
+                        <input type="tel" name="phone">
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Daftar</button>
+            </div>
+        }
+    </div>
+</div>

@@ -4,7 +4,10 @@
 <h1 class="page-header">Pencetakan Tiket</h1>
 <div class="row">
     <div class="span8">
-        <form class="form-horizontal reg-form" action="/Flight/PrintTicket" method="post">
+        @using (Html.BeginForm("PrintTicket", "Flight", FormMethod.Post, new { @class = "form-horizontal reg-form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
             <fieldset>
                 <legend>Cari Tiket</legend>
                 <div class="control-group">
@@ -17,6 +20,6 @@
             <div class="form-actions">
                 <button class="btn btn-primary" type="submit">Cari</button>
             </div>
-        </form>
+        }
     </div>
 </div>

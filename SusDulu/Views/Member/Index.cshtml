@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+<h1 class="page-header">Member Area</h1>
+<div class="row">
+    <div class="span8">
+        @using (Html.BeginForm("Login", "Member", FormMethod.Post, new { @class = "form-horizontal reg-form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <fieldset>
+                <legend>Login</legend>
+                <div class="control-group">
+                    <label class="control-label">Email: </label>
+                    <div class="controls">
+                        <input type="text" name="email">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Password: </label>
+                    <div class="controls">
+                        <input type="text" name="password">
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Cari</button>
+            </div>
+        }
+    </div>
+</div>
