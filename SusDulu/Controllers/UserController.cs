@@ -9,33 +9,33 @@ using SusDulu.Models;
 
 namespace SusDulu.Controllers
 {
-    public class MemberController : Controller
+    public class UserController : Controller
     {
-        private MembersContext db = new MembersContext();
+        private SusDuluDB db = new SusDuluDB();
 
         //
-        // GET: /Member/
+        // GET: /User/
 
         public ActionResult Index()
         {
-            return View(db.Members.ToList());
+            return View(db.Users.ToList());
         }
 
         //
-        // GET: /Member/Details/5
+        // GET: /User/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Member member = db.Members.Find(id);
-            if (member == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(member);
+            return View(user);
         }
 
         //
-        // GET: /Member/Create
+        // GET: /User/Create
 
         public ActionResult Create()
         {
@@ -43,73 +43,73 @@ namespace SusDulu.Controllers
         }
 
         //
-        // POST: /Member/Create
+        // POST: /User/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Member member)
+        public ActionResult Create(User user)
         {
             if (ModelState.IsValid)
             {
-                db.Members.Add(member);
+                db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(member);
+            return View(user);
         }
 
         //
-        // GET: /Member/Edit/5
+        // GET: /User/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Member member = db.Members.Find(id);
-            if (member == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(member);
+            return View(user);
         }
 
         //
-        // POST: /Member/Edit/5
+        // POST: /User/Edit/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Member member)
+        public ActionResult Edit(User user)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(member).State = EntityState.Modified;
+                db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(member);
+            return View(user);
         }
 
         //
-        // GET: /Member/Delete/5
+        // GET: /User/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            Member member = db.Members.Find(id);
-            if (member == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(member);
+            return View(user);
         }
 
         //
-        // POST: /Member/Delete/5
+        // POST: /User/Delete/5
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Member member = db.Members.Find(id);
-            db.Members.Remove(member);
+            User user = db.Users.Find(id);
+            db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
