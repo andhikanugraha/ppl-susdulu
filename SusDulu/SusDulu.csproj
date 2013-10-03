@@ -369,6 +369,8 @@
     <Content Include="Views\Flight\SearchTicket.cshtml" />
     <Content Include="Views\Member\Register.cshtml" />
     <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Flight\Search.cshtml" />
+    <Content Include="Views\Flight\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

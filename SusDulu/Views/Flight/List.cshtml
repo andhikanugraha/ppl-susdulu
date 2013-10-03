@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "List";
+}
+@model List<SusDulu.Models.Flight>
+<h1 class="page-header">Pencarian Tiket</h1>
+<div class="row">
+    <div class="span8">
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Asal</th>
+            <th>Tujuan</th>
+            <th>Jarak</th>
+            <th>Waktu keberangkatan</th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id_flight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.origin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.distance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.schedule)
+            </td>
+            <td>
+                @*<input type="submit" value="Pilih"/>*@
+                @Html.ActionLink("Book", "Booking")
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
+            </td>
+        </tr>
+    }
+    </table>
+    </div>
+</div>

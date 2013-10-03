@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebMatrix.WebData;
 using SusDulu.Models;
 
 namespace SusDulu.Controllers
@@ -42,6 +43,35 @@ namespace SusDulu.Controllers
             }
 
             return View();
+        }
+
+        //
+        // POST: /Member/Login/
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(User user)
+        {
+            if (WebSecurity.Login(user.email, user.password))
+            {
+                // Sucessful login message
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                // Failed login message
+                return RedirectToAction("Index");
+            }
+        }
+
+        //
+        // POST: /Member/Logout/
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Logout()
+        {
+            WebSecurity.Logout();
+            // Logout message
+            return RedirectToAction("Index", "Home");
         }
 
         private List<String> getUserList()

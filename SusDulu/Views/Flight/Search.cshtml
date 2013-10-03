@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Cari Tiket";
+}
+<h1 class="page-header">Pencarian Tiket</h1>
+<div class="row">
+    <div class="span8">
+        @using (Html.BeginForm("List", "Flight", FormMethod.Post, new { @class = "form-horizontal reg-form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <fieldset>
+                <legend>Cari Penerbangan</legend>
+                <div class="control-group">
+                    <label class="control-label">Asal</label>
+                    <div class="controls">
+                        <input type="text" name="origin">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Tujuan</label>
+                    <div class="controls">
+                        <input type="text" name="destination">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Waktu keberangkatan</label>
+                    <div class="controls">
+                        <input type="text" name="schedule">
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Cari</button>
+            </div>
+        }
+    </div>
+</div>

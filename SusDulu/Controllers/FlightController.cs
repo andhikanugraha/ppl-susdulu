@@ -19,7 +19,7 @@ namespace SusDulu.Controllers
 
         public ActionResult Index()
         {
-            return View(flight_db.Flights.ToList());
+            return View();
         }
 
         //
@@ -113,6 +113,42 @@ namespace SusDulu.Controllers
         }
 
         //
+        // GET: /Flight/Search/
+
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Flight/List/
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult List(Flight flight)
+        {
+            var flightList = new List<Flight>();
+            var flightQuery = from f in db.flight
+                              select f;
+            if (flight.origin != null)
+            {
+                flightQuery = flightQuery.Where(f => f.origin.Equals(flight.origin));
+            }
+            if (flight.destination != null)
+            {
+                flightQuery = flightQuery.Where(f => f.destination.Equals(flight.destination));
+            }
+
+            if (flight.schedule != null)
+            {
+                flightQuery = flightQuery.Where(f => f.schedule.Equals(flight.schedule));
+            }
+            flightList.AddRange(flightQuery);
+
+            return View(flightList);
+        }
+
+        //
         // GET: /Flight/SeacrhTicket
 
         public ActionResult SearchTicket()
@@ -130,6 +166,7 @@ namespace SusDulu.Controllers
         // POST: /Flight/PrintTicket
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult PrintTicket(string id_ticket)
         {
             var ticketList = new List<Ticket>();
