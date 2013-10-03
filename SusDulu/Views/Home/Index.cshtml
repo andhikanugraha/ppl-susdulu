@@ -1,10 +1,75 @@
 ﻿@{
     ViewBag.Title = "Beranda";
 }
-<h1 class="page-header">Selamat Datang</h1>
 
-<ul>
+<div class="row front-page">
+    <div class="col-lg-6 front-page-intro">
+        <h1>Terbang bersama Anda</h1>
+        <p>Erlangga Airlines berkomitmen untuk memberikan pelayanan terbaik dalam setiap perjalanan Anda.</p>
+    </div>
+    <div class="col-lg-6 front-page-search">
+        <h3>Pesan perjalanan Anda sekarang</h3>
+        @using (Html.BeginForm("Search", "Flight", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label class="control-label">Asal</label>
+                    <select class="form-control">
+                        <option value="CGK">Jakarta (CGK)</option>
+                        <option value="BDO">Bandung (BDO)</option>
+                    </select>
+                </div>
+                <div class="form-group col-lg-6">
+                    <label class="control-label">Tujuan</label>
+                    <select class="form-control">
+                        <option value="CGK">Jakarta (CGK)</option>
+                        <option value="BDO">Bandung (BDO)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="checkbox-inline"><input type="radio" name="tripType" value="one-way" id="oneWayTripRadio"> Sekali jalan</label>
+                <label class="checkbox-inline"><input type="radio" name="tripType" value="round-trip" id="returnTripRadio" checked> Pulang pergi</label>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-5">
+                    <label class="control-label">Keberangkatan</label>
+                    <input type="date" class="form-control" />
+                </div>
+                <div class="form-group col-lg-5" id="returnTripDate">
+                    <label class="control-label">Kepulangan</label>
+                    <input type="date" class="form-control" />
+                </div>
+                <div class="form-group col-lg-2">
+                    <label class="control-label">Jumlah</label>
+                    <input type="number" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group pull-right">
+                <button class="btn btn-primary btn-lg">Cari</button>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('input[type=date]').datepicker();
+        $('#oneWayTripRadio').change(function () {
+            $(this).is(':checked') ?
+                $('#returnTripDate input').attr('disabled', 'disabled') :
+                $('#returnTripDate input').removeAttr('disabled');
+        });
+        $('#returnTripRadio').change(function () {
+            $(this).is(':checked') ?
+                $('#returnTripDate input').removeAttr('disabled') :
+                $('#returnTripDate input').attr('disabled', 'disabled');
+        })
+    </script>
+}
+
+@*<ul>
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
     <li>@Html.ActionLink("About", "About", "Home")</li>
     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-</ul>
+</ul>*@
