@@ -210,16 +210,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Flight.cs" />
-    <Compile Include="Models\FlightTicket.cs" />
-    <Compile Include="Models\For.cs" />
-    <Compile Include="Models\Member.cs" />
-    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Airport.cs" />
     <Compile Include="Models\Plane.cs" />
-    <Compile Include="Models\SusDuluDbContext.cs" />
+    <Compile Include="Models\SusDuluDB.cs" />
     <Compile Include="Models\Ticket.cs" />
-    <Compile Include="Models\Use.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -252,7 +247,9 @@
     <Content Include="Scripts\knockout-2.3.0.debug.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
