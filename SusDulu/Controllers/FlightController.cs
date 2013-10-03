@@ -6,6 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SusDulu.Models;
+using System.Diagnostics;
+using System.Globalization;
+using System.Data.Objects;
 
 namespace SusDulu.Controllers
 {
@@ -162,10 +165,22 @@ namespace SusDulu.Controllers
             }
         }
 
-        public ActionResult SearchIndex(string flightOrigin, string flightDestination)
+        public ActionResult SearchIndex(string flightOrigin, string flightDestination, string flightSchedule)
         {
+            Debug.WriteLine("pesan tiket clicked");
+            Debug.WriteLine("schedule: "+flightSchedule);
+            DateTime dt = new DateTime();
+            if (!string.IsNullOrEmpty(flightSchedule))
+            {
+                dt = DateTime.ParseExact(flightSchedule, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                Debug.WriteLine("schedule baru: " + dt.ToShortDateString());
+                flightSchedule = dt.ToShortDateString();
+            }
+            
+
             var OriginList = new List<string>();
             var DestinationList = new List<string>();
+            var ScheduleList = new List<string>();
 
             //            buat select list
             var OriginQry = from o in flight_db.Flights
@@ -180,9 +195,18 @@ namespace SusDulu.Controllers
             DestinationList.AddRange(DestinationQry.Distinct());
             ViewBag.flightDestination = new SelectList(DestinationList);
 
+            var ScheduleQry = from d in db.flight
+                              orderby d.schedule
+                              select d.schedule;
+
             //            mekanisme seleksi
             var flights = from f in flight_db.Flights
                           select f;
+
+            foreach (var dum in flights)
+            {
+                Debug.WriteLine("sch: "+dum.schedule);
+            }
 
             if (!String.IsNullOrEmpty(flightOrigin))
             {
@@ -191,11 +215,23 @@ namespace SusDulu.Controllers
 
             if (string.IsNullOrEmpty(flightDestination))
             {
+                //return View(flights);
+            }
+            else
+            {
+                //return View(flights.Where(x => x.destination == flightDestination));
+                flights = flights.Where(x => x.destination == flightDestination);
+            }
+
+            if (string.IsNullOrEmpty(flightSchedule))
+            {
                 return View(flights);
             }
             else
             {
-                return View(flights.Where(x => x.destination == flightDestination));
+                Debug.WriteLine("masuk seleksi schedule");
+                //return View(flights.Where(x => EntityFunctions.TruncateTime(x.schedule) == dt));
+                return View();
             }
         }
     }

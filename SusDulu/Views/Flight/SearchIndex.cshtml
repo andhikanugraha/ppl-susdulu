@@ -4,7 +4,7 @@
     ViewBag.Title = "SearchIndex";
 }
 
-<h2>SearchIndex</h2>
+<h2>Search</h2>
 
 <p>
     @*@Html.ActionLink("Create New", "Create")*@
@@ -13,22 +13,23 @@
     {
         <p>Origin: @Html.DropDownList("flightOrigin","All")
             Destination: @Html.DropDownList("flightDestination","All")
-        <input type="submit" value="cari"/></p>
+            Schedule: <input class="datefield" name="flightSchedule" type="date"/>
+        <input class="input-sm" type="submit" value="Search"/></p>
     }
 </p>
-<table>
+<table class="table">
     <tr>
-        <th>
+        <th class="lead">
             @Html.DisplayNameFor(model => model.origin)
         </th>
-        <th>
+        <th class="lead">
             @Html.DisplayNameFor(model => model.destination)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.departure)
+        <th class="lead">
+            @Html.DisplayNameFor(model => model.distance)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.level)
+        <th class="lead">
+            @Html.DisplayNameFor(model => model.schedule)
         </th>
         <th></th>
     </tr>
@@ -42,13 +43,14 @@
             @Html.DisplayFor(modelItem => item.destination)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.departure)
+            @Html.DisplayFor(modelItem => item.distance)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.level)
+            @Html.DisplayFor(modelItem => item.schedule)
         </td>
         <td>
-            <input type="submit" value="Pilih"/>
+            @*<input class="close" type="submit" value=">"/>*@
+            @Html.ActionLink(">","Create","Order")
 
             @*@Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |

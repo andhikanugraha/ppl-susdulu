@@ -18,10 +18,16 @@
             @Html.DisplayNameFor(model => model.destination)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.departure)
+            @Html.DisplayNameFor(model => model.distance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.schedule)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.level)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
         </th>
         <th></th>
     </tr>
@@ -35,12 +41,19 @@
             @Html.DisplayFor(modelItem => item.destination)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.departure)
+            @Html.DisplayFor(modelItem => item.distance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.schedule)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.level)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.price)
+        </td>
+        <td>
+            <input type="submit" value="Pilih"/>
             @*@Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })*@

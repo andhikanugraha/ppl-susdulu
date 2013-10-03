@@ -38,8 +38,8 @@ h1.page-header {
 	border: 1px solid #eee;
 	margin-left: 20px;
 }
-.reg-form legend {
-	margin-bottom: 0;
+.reg-form label {
+    font-weight: normal;
 }
 .reg-form .form-actions {
 	margin: 0;
