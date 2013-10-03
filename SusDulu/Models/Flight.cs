@@ -2,31 +2,32 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace SusDulu.Models
 {
+    [Table("flight")]
     public class Flight
     {
+        [Key]
         public int ID { get; set; }
-
-        [Required]
-        public string origin { get; set; }
-
-        [Required]
-        public string destination { get; set; }
-        public Int32 distance { get; set; }
-
-        //[DataType(DataType.Date)]
-        public DateTime schedule { get; set; }
-
-        public string level { get; set; }
-        public Int64 price { get; set; }
-    }
-
-    public class FlightDBContext : DbContext
-    {
-        public DbSet<Flight> Flights { get; set; }
+        [ForeignKey("plane")]
+        public int ID_plane { get; set; }
+        public string Flight_number { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime Departure_date { get; set; }
+        [DataType(DataType.Time)]
+        public DateTime Departure_time { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime Arrival_date { get; set; }
+        [DataType(DataType.Time)]
+        public DateTime Arrival_time { get; set; }
+        [ForeignKey("airport")]
+        public string Origin;
+        [ForeignKey("airport")]
+        public string Destination;
+        public int Distance;
     }
 }

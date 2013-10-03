@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Cetak Tiket";
+}
+<h1 class="page-header">Pencetakan Tiket</h1>
+<div class="row">
+    <div class="span8">
+        <form class="form-horizontal reg-form" action="/Flight/PrintTicket" method="post">
+            <fieldset>
+                <legend>Cari Tiket</legend>
+                <div class="control-group">
+                    <label class="control-label">ID tiket: </label>
+                    <div class="controls">
+                        <input type="text" name="id_ticket">
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Cari</button>
+            </div>
+        </form>
+    </div>
+</div>
