@@ -2,8 +2,8 @@
 
 body {
 	font-family: Segoe UI;
-	border-top: 4px solid #ef4136;
-	border-bottom: 4px solid #be1e2d;
+	border-top: 6px solid #ef4136;
+	/*border-bottom: 4px solid #be1e2d;*/
 	padding-top: 40px;
 	padding-bottom: 30px;
 }
@@ -16,10 +16,15 @@ input, textarea, select, button {
 div.container {
 }
 
+h1, h2, h3 {
+    font-family: 'Segoe UI Light', 'Segoe UI';
+    font-weight: 300;
+}
+
 h1.page-header {
 	font-family: 'Segoe UI Light';
 	font-weight: normal;
-	margin-top: 60px;
+	margin-top: 40px;
 	margin-bottom: 30px;
 	color: #be1e2d;
 	border-bottom: 0;
@@ -53,4 +58,40 @@ h1.page-header {
 }
 .site-footer p {
 	margin: 0;
+}
+
+.front-page {
+    margin-top: 40px;
+}
+.front-page-intro {
+    background: #be1e2d;
+    color: #fff;
+    padding-top: 80px;
+    padding-bottom: 100px;
+}
+
+.front-page-search > h3,
+.front-page-search > form {
+    margin-left: 20px
+}
+
+.front-page-search button {
+    padding-right: 60px;
+    padding-left: 60px;
+}
+
+.front-page-search h3 {
+    color: #be1e2d;
+}
+
+.site-header {
+    position: relative;
+    height: 80px;
+}
+.site-header .member-area {
+    float: right;
+    margin-top: 10px;
+    background: #eee;
+    padding: 5px;
+    border-radius: 3px;
 }

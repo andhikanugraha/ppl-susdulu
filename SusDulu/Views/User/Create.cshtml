@@ -1,4 +1,4 @@
-﻿@model SusDulu.Models.Member
+﻿@model SusDulu.Models.User
 
 @{
     ViewBag.Title = "Create";
@@ -16,7 +16,7 @@
         </ul>
     </div>
     <div class="col-sm-8">
-@using (Html.BeginForm("Create", "Member", FormMethod.Post, new { @class = "form-horizontal reg-form" })) {
+@using (Html.BeginForm("Create", "User", FormMethod.Post, new { @class = "form-horizontal reg-form" })) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
             <fieldset>
@@ -238,7 +238,7 @@
             </fieldset>
             <div class="form-group">
                 <div class="col-lg-offset-3 col-lg-9">
-                    <button class="btn btn-primary" type="submit">Daftar</button>
+                    <button class="btn btn-danger" type="submit">Daftar</button>
                 </div>
             </div>
 
@@ -255,7 +255,7 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Member</legend>
+        <legend>User</legend>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
