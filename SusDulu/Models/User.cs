@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -11,18 +11,22 @@ namespace SusDulu.Models
     [Table("user")]
     public class User
     {
-        [Key] 
-        public string Id_user { get; set; }
-        public String name { get; set; }
-        public String address { get; set; }
-        public String phone { get; set; }
-        public String email { get; set; }
-        public String password { get; set; }
-        public int distance_traveled { get; set; }
-    }
-
-    public class UserDBContext : DbContext
-    {
-        public DbSet<User> Users { get; set; }
+        [Key]
+        public int ID { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        [NotMapped, Compare("password", ErrorMessage = "Password doesn't match")]
+        public string Confirm_password { get; set; }
+        public string First_name { get; set; }
+        public string Middle_name { get; set; }
+        public string Last_name { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string Province { get; set; }
+        public string Postcode { get; set; }
+        public string Phone { get; set; }
+        public string Gender { get; set; }
+        public int Total_miles { get; set; }
+        public int Current_miles { get; set; }
     }
 }

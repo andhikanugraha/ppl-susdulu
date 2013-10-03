@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace SusDulu.Models
 {
-    [Table("book")]
-    public class Book
+    [Table("airport")]
+    public class Airport
     {
-        [Key, Column(Order = 0)] 
-        public string Id_ticket { get; set; }
-        [Key, Column(Order = 1)]
-        public string Id_user { get; set; }
+        [Key]
+        public string ID { get; set; }
+        public string Name { get; set; }
     }
 }
