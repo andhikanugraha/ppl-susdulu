@@ -203,17 +203,17 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FlightController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PasswordHasher.cs" />
+    <Compile Include="Helpers\SusDuluMembershipProvider.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Flight.cs" />
     <Compile Include="Models\Airport.cs" />
     <Compile Include="Models\Plane.cs" />
-    <Compile Include="Models\SusDuluDB.cs" />
+    <Compile Include="Models\DefaultConnection.cs" />
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -228,7 +228,6 @@
     <Content Include="Content\img\masthead.png" />
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
-    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />

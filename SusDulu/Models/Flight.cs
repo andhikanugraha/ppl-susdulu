@@ -13,7 +13,6 @@ namespace SusDulu.Models
     {
         [Key]
         public int ID { get; set; }
-        [ForeignKey("plane")]
         public int ID_plane { get; set; }
         public string Flight_number { get; set; }
         [DataType(DataType.Date)]
@@ -24,9 +23,7 @@ namespace SusDulu.Models
         public DateTime Arrival_date { get; set; }
         [DataType(DataType.Time)]
         public DateTime Arrival_time { get; set; }
-        [ForeignKey("airport")]
         public string Origin;
-        [ForeignKey("airport")]
         public string Destination;
         public int Distance;
     }

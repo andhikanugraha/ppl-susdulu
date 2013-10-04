@@ -2,6 +2,7 @@
     ViewBag.Title = "Beranda";
 }
 
+@model List<SusDulu.Models.Airport>
 <div class="row front-page">
     <div class="col-lg-6 front-page-intro">
         <h1>Terbang bersama Anda</h1>
@@ -9,36 +10,40 @@
     </div>
     <div class="col-lg-6 front-page-search">
         <h3>Pesan perjalanan Anda sekarang</h3>
-        @using (Html.BeginForm("Search", "Flight", FormMethod.Get))
+        @using (Html.BeginForm("Search", "Flight", FormMethod.Post))
         {
             <div class="row">
                 <div class="form-group col-lg-6">
                     <label class="control-label">Asal</label>
-                    <select class="form-control">
-                        <option value="CGK">Jakarta (CGK)</option>
-                        <option value="BDO">Bandung (BDO)</option>
+                    <select class="form-control" name="origin">
+                        @foreach (var item in Model)
+                        {
+                        <option value="@Html.DisplayFor(modelItem => item.ID)">@Html.DisplayFor(modelItem => item.Name) (@Html.DisplayFor(modelItem => item.ID))</option>
+                        }
                     </select>
                 </div>
                 <div class="form-group col-lg-6">
                     <label class="control-label">Tujuan</label>
-                    <select class="form-control">
-                        <option value="CGK">Jakarta (CGK)</option>
-                        <option value="BDO">Bandung (BDO)</option>
+                    <select class="form-control" name="destination">
+                        @foreach (var item in Model)
+                        {
+                        <option value="@Html.DisplayFor(modelItem => item.ID)">@Html.DisplayFor(modelItem => item.Name) (@Html.DisplayFor(modelItem => item.ID))</option>
+                        }
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="checkbox-inline"><input type="radio" name="tripType" value="one-way" id="oneWayTripRadio"> Sekali jalan</label>
-                <label class="checkbox-inline"><input type="radio" name="tripType" value="round-trip" id="returnTripRadio" checked> Pulang pergi</label>
+                <label class="checkbox-inline"><input type="radio" name="tripType" value="one-way" id="oneWayTripRadio" checked> Sekali jalan</label>
+                <label class="checkbox-inline"><input type="radio" name="tripType" value="round-trip" id="returnTripRadio"> Pulang pergi</label>
             </div>
             <div class="row">
                 <div class="form-group col-lg-5">
                     <label class="control-label">Keberangkatan</label>
-                    <input type="date" class="form-control" />
+                    <input type="date" name="departure_date1" class="form-control" />
                 </div>
                 <div class="form-group col-lg-5" id="returnTripDate">
                     <label class="control-label">Kepulangan</label>
-                    <input type="date" class="form-control" />
+                    <input type="date" name="departure_date2" class="form-control" />
                 </div>
                 <div class="form-group col-lg-2">
                     <label class="control-label">Jumlah</label>
@@ -67,9 +72,3 @@
         })
     </script>
 }
-
-@*<ul>
-    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-    <li>@Html.ActionLink("About", "About", "Home")</li>
-    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-</ul>*@

@@ -19,7 +19,7 @@
 </p>
 <table class="table">
     <tr>
-        <th class="lead">
+        @*<th class="lead">
             @Html.DisplayNameFor(model => model.origin)
         </th>
         <th class="lead">
@@ -30,13 +30,13 @@
         </th>
         <th class="lead">
             @Html.DisplayNameFor(model => model.schedule)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.origin)
         </td>
         <td>
@@ -47,7 +47,7 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.schedule)
-        </td>
+        </td>*@
         <td>
             @*<input class="close" type="submit" value=">"/>*@
             @Html.ActionLink(">","Create","Order")
