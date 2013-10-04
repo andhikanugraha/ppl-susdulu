@@ -8,6 +8,11 @@ namespace SusDulu.Models
 {
     public class SusDuluDB : DbContext
     {
+        public SusDuluDB()
+            : base("DefaultConnection")
+        {
+        }
+
         public DbSet<Flight> Flights { get; set; }
         public DbSet<Airport> Places { get; set; }
         public DbSet<Plane> Planes { get; set; }
