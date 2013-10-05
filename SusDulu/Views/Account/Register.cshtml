@@ -3,34 +3,114 @@
     ViewBag.Title = "Register";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Create a new account.</h2>
-</hgroup>
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
+<h1 class="page-header">Pendaftaran Anggota</h1>
+<div class="row">
+    <div class="col-sm-4 reg-intro">
+        <p class="lead">Untuk memanfaatkan fitur-fitur online Airlangga Airlines, silakan mendaftar terlebih dahulu di laman ini.</p>
+        <p>Dengan mendaftar, Anda dapat:</p>
+        <ul>
+            <li>Memesan tiket secara online</li>
+            <li>Melakukan online check-in</li>
+            <li>dst.</li>
+        </ul>
+    </div>
+    <div class="col-sm-8">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal reg-form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            <fieldset>
+                <legend>Formulir Pendaftaran</legend>
+                <div class="form-group">
+                    <label class="control-label col-lg-3">Alamat surel</label>
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3">Sandilewat</label>
+                    <div class="col-lg-9">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3">Ulangi sandilewat</label>
+                    <div class="col-lg-9">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    </div>
+                </div>
+            </fieldset>
 
-    <fieldset>
-        <legend>Registration Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>
-        </ol>
-        <input type="submit" value="Register" />
-    </fieldset>
-}
+            <fieldset>
+                <legend>Informasi Pribadi</legend>
+                <div class="form-group">
+                    <label class="control-label col-lg-3">Nama depan</label>
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.First_name, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3">Nama tengah</label>
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.Middle_name, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3">Nama belakang</label>
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.Last_name, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3">Jenis kelamin</label>
+                    <div class="col-lg-9">
+                        @Html.DropDownListFor(m => m.Gender, new SelectList(new Dictionary<string, string>() {
+                            { "FEMALE", "Perempuan" },
+                            { "MALE", "Laki-laki" }
+                        }, "Key", "Value"), new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3">Alamat rumah</label>
+                    <div class="col-lg-9">
+                        @Html.TextAreaFor(m => m.Address, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3">Kota</label>
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3">Kode Pos</label>
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.Postcode, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3">Provinsi</label>
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.Province, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3">Nomor telepon</label>
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <div class="col-lg-offset-3 col-lg-9">
+                    <button class="btn btn-danger" type="submit">Daftar</button>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

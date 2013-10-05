@@ -6,9 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
-using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using SusDulu.Models;
+using System.Diagnostics;
+using SusDulu.Helpers;
 
 namespace SusDulu.Controllers
 {
@@ -61,6 +62,7 @@ namespace SusDulu.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            Debug.Write("Hello world.");
             return View();
         }
 
@@ -77,8 +79,40 @@ namespace SusDulu.Controllers
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
+                    Debug.Write("Hello.");
+
+                    User test;
+                    using (var ctx = new UsersContext())
+                    {
+                        var uu = from u in ctx.Users
+                                 where u.Email == model.Email
+                                 select u;
+
+                        test = uu.FirstOrDefault<User>();
+                    }
+
+                    // var test = users.FirstOrDefault();
+
+                    if (test == null)
+                    {
+                        // Email is not yet registered.
+                        // Create new user account.
+
+                        var newUser = model.ConvertToUser();
+                        using (var context = new UsersContext())
+                        {
+                            context.AddUser(newUser);
+                        }
+                    }
+                    else
+                    {
+                        // Email has been registered.
+                        throw new MembershipCreateUserException(MembershipCreateStatus.DuplicateUserName);
+                    }
+
+                    // WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    WebSecurity.Login(model.Email, model.Password);
+
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -87,6 +121,7 @@ namespace SusDulu.Controllers
                 }
             }
 
+            Debug.WriteLine("Fail!");
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -100,7 +135,7 @@ namespace SusDulu.Controllers
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : "";
-            ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.HasLocalPassword = true;
             ViewBag.ReturnUrl = Url.Action("Manage");
             return View();
         }
