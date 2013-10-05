@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Cari Penerbangan";
+}
+@model SusDulu.Models.OptionsModel
+<h2>Pilih Penerbangan</h2>
+<table class="table">
+    <tr>
+        <th>Nomor penerbangan</th>
+        <th>Waktu keberangkatan</th>
+        <th>Waktu tiba</th>
+    </tr>
+    @foreach (var item in Model.Flights1)
+    {
+         <tr>
+             <td>@Html.DisplayFor(modelItem => item.Flight_number)</td>
+             <td>@Html.DisplayFor(modelItem => item.Departure_time)</td>
+             <td>@Html.DisplayFor(modelItem => item.Arrival_time)</td>
+             <td>@Html.ActionLink(">", "Create", "Order")</td>
+         </tr>
+    }
+</table>
+@if (Model.Flights2.Count > 0)
+{
+     <table class="table">
+    <tr>
+        <th>Nomor penerbangan</th>
+        <th>Waktu keberangkatan</th>
+        <th>Waktu tiba</th>
+    </tr>
+    @foreach (var item in Model.Flights2)
+    {
+         <tr>
+             <td>@Html.DisplayFor(modelItem => item.Flight_number)</td>
+             <td>@Html.DisplayFor(modelItem => item.Departure_time)</td>
+             <td>@Html.DisplayFor(modelItem => item.Arrival_time)</td>
+             <td>@Html.ActionLink(">", "Create", "Order")</td>
+         </tr>
+    }
+</table>
+}

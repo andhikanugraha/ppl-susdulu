@@ -16,11 +16,37 @@ namespace SusDulu.Controllers
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
 
             var airportList = new List<Airport>();
-            var airportQuery = from a in db.Airports
-                               select a;
+            var airportQuery = from airport in db.Airports
+                               select airport;
             airportList.AddRange(airportQuery.Distinct());
 
             return View(airportList);
+        }
+
+        [HttpPost]
+        public ActionResult Search(SearchModel model)
+        {
+            model.Departure_date1.Replace("/", "-");
+            var flightList1 = new List<Flight>();
+            var flightQuery = from flight in db.Flights
+                              select flight;
+            flightQuery = flightQuery.Where(f => f.Origin.Equals(model.Origin));
+            flightQuery = flightQuery.Where(f => f.Destination.Equals(model.Destination));
+            flightQuery = flightQuery.Where(f => f.Departure_date.Equals(model.Departure_date1));
+            flightList1.AddRange(flightQuery.Distinct());
+
+            var flightList2 = new List<Flight>();
+            if (model.TripType.Equals("round-trip"))
+            {
+                flightQuery = from flight in db.Flights
+                              select flight;
+                flightQuery = flightQuery.Where(f => f.Origin.Equals(model.Destination));
+                flightQuery = flightQuery.Where(f => f.Destination.Equals(model.Origin));
+                flightQuery = flightQuery.Where(f => f.Departure_date.Equals(model.Departure_date2));
+                flightList2.AddRange(flightQuery.Distinct());
+            }
+
+            return View(new OptionsModel() { Flights1 = flightList1, Flights2 = flightList2 });
         }
 
         public ActionResult About()
