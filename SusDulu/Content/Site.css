@@ -89,9 +89,21 @@ h1.page-header {
     height: 80px;
 }
 .site-header .member-area {
+    font-size: 12px;
+    line-height: 1.5;
     float: right;
     margin-top: 10px;
     background: #eee;
     padding: 5px;
     border-radius: 3px;
+}
+.site-header .member-area .glyphicon {
+    margin-right: 0.4em;
+}
+.site-header .member-area .current-user {
+    padding: 5px 15px 5px 10px;
+    float: left;
+}
+.site-header .member-area .current-user-actions {
+    float: left;
 }
