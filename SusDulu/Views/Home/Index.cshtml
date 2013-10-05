@@ -10,6 +10,13 @@
     </div>
     <div class="col-lg-6 front-page-search">
         <h3>Pesan perjalanan Anda sekarang</h3>
+        @if (ViewBag.Message != null)
+        {
+            if (ViewBag.Message.Equals("search_error"))
+            {
+                <p>Data yang anda masukkan belum lengkap</p>
+            }
+        }
         @using (Html.BeginForm("Search", "Home", FormMethod.Post))
         {
             <div class="row">

@@ -34,21 +34,28 @@ namespace SusDulu.Models
 
     public class SearchModel
     {
+        [Required]
         public string Origin { get; set; }
+        [Required]
         public string Destination { get; set; }
+        [Required]
         public string TripType { get; set; }
         //[DataType(DataType.Date)]
         //public DateTime Departure_date1;
         //[DataType(DataType.Date)]
         //public DateTime Departure_date2;
+        [Required]
         public string Departure_date1 { get; set; }
         public string Departure_date2 { get; set; }
+        [Required]
         public int Sum { get; set; }
     }
 
     public class OptionsModel
     {
+        public string TripType { get; set; }
         public List<Flight> Flights1 { get; set; }
         public List<Flight> Flights2 { get; set; }
+        public int Sum { get; set; }
     }
 }

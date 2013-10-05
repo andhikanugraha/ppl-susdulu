@@ -2,39 +2,56 @@
     ViewBag.Title = "Cari Penerbangan";
 }
 @model SusDulu.Models.OptionsModel
-<h2>Pilih Penerbangan</h2>
-<table class="table">
-    <tr>
-        <th>Nomor penerbangan</th>
-        <th>Waktu keberangkatan</th>
-        <th>Waktu tiba</th>
-    </tr>
-    @foreach (var item in Model.Flights1)
-    {
-         <tr>
-             <td>@Html.DisplayFor(modelItem => item.Flight_number)</td>
-             <td>@Html.DisplayFor(modelItem => item.Departure_time)</td>
-             <td>@Html.DisplayFor(modelItem => item.Arrival_time)</td>
-             <td>@Html.ActionLink(">", "Create", "Order")</td>
-         </tr>
-    }
-</table>
-@if (Model.Flights2.Count > 0)
+<h3>Pilih Penerbangan Anda</h3>
+@using(Html.BeginForm("Create", "Order", FormMethod.Post))
 {
-     <table class="table">
-    <tr>
-        <th>Nomor penerbangan</th>
-        <th>Waktu keberangkatan</th>
-        <th>Waktu tiba</th>
-    </tr>
-    @foreach (var item in Model.Flights2)
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Nomor penerbangan</th>
+            <th>Waktu keberangkatan</th>
+            <th>Waktu tiba</th>
+        </tr>
+        @foreach (var item in Model.Flights1)
+        {
+             <tr>
+                 <td><input type="radio" name="id_flight1" value="@Html.DisplayFor(modelItem => item.ID)"></td>
+                 <td>@Html.DisplayFor(modelItem => item.Flight_number)</td>
+                 <td>@Html.DisplayFor(modelItem => item.Departure_time)</td>
+                 <td>@Html.DisplayFor(modelItem => item.Arrival_time)</td>
+             </tr>
+        }
+    </table>
+    if (Model.Flights1.Count == 0)
     {
-         <tr>
-             <td>@Html.DisplayFor(modelItem => item.Flight_number)</td>
-             <td>@Html.DisplayFor(modelItem => item.Departure_time)</td>
-             <td>@Html.DisplayFor(modelItem => item.Arrival_time)</td>
-             <td>@Html.ActionLink(">", "Create", "Order")</td>
-         </tr>
+        <p>Tidak ada hasil yang ditemukan</p>
     }
-</table>
+    if (Model.TripType.Equals("round-trip"))
+    {
+            <table class="table">
+            <tr>
+                <th></th>
+                <th>Nomor penerbangan</th>
+                <th>Waktu keberangkatan</th>
+                <th>Waktu tiba</th>
+            </tr>
+            @foreach (var item in Model.Flights2)
+            {
+                 <tr>
+                     <td><input type="radio" name="id_flight2" value="@Html.DisplayFor(modelItem => item.ID)"></td>
+                     <td>@Html.DisplayFor(modelItem => item.Flight_number)</td>
+                     <td>@Html.DisplayFor(modelItem => item.Departure_time)</td>
+                     <td>@Html.DisplayFor(modelItem => item.Arrival_time)</td>
+                 </tr>
+            }
+        </table>
+        if (Model.Flights2.Count == 0)
+        {
+            <p>Tidak ada hasil yang ditemukan</p>
+    }
+    }
+    <input type="hidden" name="Sum" value="@Html.DisplayFor(sum => Model.Sum)">
+    <div class="form-group pull-right">
+        <button class="btn btn-danger btn-lg">Lanjut <i class="glyphicon glyphicon-arrow-right"></i></button>
+    </div>
 }

@@ -11,10 +11,9 @@ namespace SusDulu.Controllers
     {
         DefaultConnection db = new DefaultConnection();
 
-        public ActionResult Index()
+        public ActionResult Index(string message = null)
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
+            ViewBag.Message = message;
             var airportList = new List<Airport>();
             var airportQuery = from airport in db.Airports
                                select airport;
@@ -26,6 +25,10 @@ namespace SusDulu.Controllers
         [HttpPost]
         public ActionResult Search(SearchModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", new {message = "search_error"});
+            }
             model.Departure_date1.Replace("/", "-");
             var flightList1 = new List<Flight>();
             var flightQuery = from flight in db.Flights
@@ -46,7 +49,7 @@ namespace SusDulu.Controllers
                 flightList2.AddRange(flightQuery.Distinct());
             }
 
-            return View(new OptionsModel() { Flights1 = flightList1, Flights2 = flightList2 });
+            return View(new OptionsModel() { TripType = model.TripType, Flights1 = flightList1, Flights2 = flightList2, Sum = model.Sum });
         }
 
         public ActionResult About()
