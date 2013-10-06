@@ -6,115 +6,128 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SusDulu.Models;
+using System.Diagnostics;
 
 namespace SusDulu.Controllers
 {
     public class OrderController : Controller
     {
-        //private OrderDBContext db = new OrderDBContext();
+        private DefaultConnection db = new DefaultConnection();
 
-        ////
-        //// GET: /Order/
+        //
+        // GET: /Order/
 
-        //public ActionResult Index()
-        //{
-        //    return View(db.Orders.ToList());
-        //}
+        public ActionResult Index()
+        {
+            return View(db.Tickets.ToList());
+        }
 
-        ////
-        //// GET: /Order/Details/5
+        //
+        // GET: /Order/Details/5
 
-        //public ActionResult Details(int id = 0)
-        //{
-        //    Order order = db.Orders.Find(id);
-        //    if (order == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(order);
-        //}
+        public ActionResult Details(int id = 0)
+        {
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ticket);
+        }
 
-        ////
-        //// GET: /Order/Create
+        //
+        // GET: /Order/Create
 
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+        public ActionResult Create()
+        {
+            //daftar seat yang telah dipesan
+            List<string> occSeat = new List<string>();
 
-        ////
-        //// POST: /Order/Create
+            var seatQry = from s in db.Tickets
+                          select s.Seat;
+            occSeat.AddRange(seatQry.Distinct());
 
-        //[HttpPost]
-        //public ActionResult Create(Order order)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Orders.Add(order);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+            ViewBag.occSeat = occSeat;
 
-        //    return View(order);
-        //}
+            return View();
+        }
 
-        ////
-        //// GET: /Order/Edit/5
+        //
+        // POST: /Order/Create
 
-        //public ActionResult Edit(int id = 0)
-        //{
-        //    Order order = db.Orders.Find(id);
-        //    if (order == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(order);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Ticket ticket)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Tickets.Add(ticket);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
-        ////
-        //// POST: /Order/Edit/5
+            return View(ticket);
+        }
 
-        //[HttpPost]
-        //public ActionResult Edit(Order order)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(order).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(order);
-        //}
+        //
+        // GET: /Order/Edit/5
 
-        ////
-        //// GET: /Order/Delete/5
+        public ActionResult Edit(int id = 0)
+        {
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ticket);
+        }
 
-        //public ActionResult Delete(int id = 0)
-        //{
-        //    Order order = db.Orders.Find(id);
-        //    if (order == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(order);
-        //}
+        //
+        // POST: /Order/Edit/5
 
-        ////
-        //// POST: /Order/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Ticket ticket)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(ticket).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(ticket);
+        }
 
-        //[HttpPost, ActionName("Delete")]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Order order = db.Orders.Find(id);
-        //    db.Orders.Remove(order);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        //
+        // GET: /Order/Delete/5
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    db.Dispose();
-        //    base.Dispose(disposing);
-        //}
+        public ActionResult Delete(int id = 0)
+        {
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ticket);
+        }
+
+        //
+        // POST: /Order/Delete/5
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Ticket ticket = db.Tickets.Find(id);
+            db.Tickets.Remove(ticket);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }
