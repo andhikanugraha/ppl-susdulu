@@ -14,11 +14,17 @@ namespace SusDulu.Models
     {
         [Key]
         public int ID { get; set; }
+
+        [Required]
         public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
         public string Password { get; set; } // hashed using PBKDF2
-        [NotMapped, Compare("Password", ErrorMessage = "Password doesn't match")]
-        public string Confirm_password { get; set; }
+
+        [Required]
         public string First_name { get; set; }
+
         public string Middle_name { get; set; }
         public string Last_name { get; set; }
         public string Address { get; set; }
@@ -29,6 +35,11 @@ namespace SusDulu.Models
         public string Gender { get; set; }
         public int Total_miles { get; set; }
         public int Current_miles { get; set; }
+
+        public User()
+        {
+
+        }
 
         public User(string email, string unhashedPassword)
         {
@@ -42,6 +53,56 @@ namespace SusDulu.Models
         }
     }
 
+
+    public class LoginModel
+    {
+        [Required]
+        [Display(Name = "Alamat surel")]
+        public string UserName { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Sandilewat")]
+        public string Password { get; set; }
+
+        [Display(Name = "Ingat saya?")]
+        public bool RememberMe { get; set; }
+    }
+
+    [NotMapped]
+    public class RegisterModel : User
+    {
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+        public User ConvertToUser()
+        {
+            var u = new User();
+            u.Email = Email;
+
+            u.First_name = First_name;
+            u.Middle_name = Middle_name;
+            u.Last_name = Last_name;
+            u.Gender = Gender;
+            
+            u.Address = Address;
+            u.City = City;
+            u.Postcode = Postcode;
+            u.Province = Province;
+            u.Phone = Phone;
+
+            u.Total_miles = 0;
+            u.Current_miles = 0;
+
+            u.SetUnhashedPassword(Password);
+
+            return u;
+        }
+    }
+
+
     public class UsersContext : DbContext
     {
         public UsersContext()
@@ -50,6 +111,12 @@ namespace SusDulu.Models
         }
 
         public DbSet<User> Users { get; set; }
+
+        public void AddUser(User user)
+        {
+            Users.Add(user);
+            SaveChanges();
+        }
 
         public User GetUser(string email)
         {

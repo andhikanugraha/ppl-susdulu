@@ -153,16 +153,25 @@ CREATE TABLE IF NOT EXISTS `user` (
   `first_name` varchar(50) NOT NULL,
   `middle_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
-  `address` varchar(200) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `gender` enum('MALE','FEMALE','','') NOT NULL,
-  `city` varchar(100) NOT NULL,
-  `province` varchar(100) NOT NULL,
-  `postcode` varchar(10) NOT NULL,
-  `total_miles` int(11) NOT NULL,
-  `current_miles` int(11) NOT NULL,
+  `address` varchar(200) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `gender` enum('MALE','FEMALE','') DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `province` varchar(100) DEFAULT NULL,
+  `postcode` varchar(10) DEFAULT NULL,
+  `total_miles` int(11) DEFAULT NULL,
+  `current_miles` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`ID`, `email`, `password`, `first_name`, `middle_name`, `last_name`, `address`, `phone`, `gender`, `city`, `province`, `postcode`, `total_miles`, `current_miles`) VALUES
+(1, 'susdulu@informatika.org', '1000:ge9eiy1SeY8xsVX12joRl5etbNJh8rup:l8MjEoS2rNF2TvtIqxhaTHbtJWQaJqkD', 'Sus', NULL, 'Dulu', 'Jalan Ganesha 10', '14045', 'MALE', 'Bandung', 'Jawa Barat', '40132', 0, 0);
+
+-- --------------------------------------------------------
 
 --
 -- Constraints for dumped tables
