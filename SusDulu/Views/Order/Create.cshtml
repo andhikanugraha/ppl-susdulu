@@ -169,8 +169,8 @@
 
             @{
                 List<SelectListItem> seatList = new List<SelectListItem>();
-                string col = "ABCDEF";
-                for (int i = 0; i < 6; i++)
+                string col = ViewBag.seatCol;
+                for (int i = 0; i < ViewBag.seatRow; i++)
                 {
                     foreach (char c in col)
                     {

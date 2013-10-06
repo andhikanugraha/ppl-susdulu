@@ -46,8 +46,11 @@ namespace SusDulu.Controllers
             var seatQry = from s in db.Tickets
                           select s.Seat;
             occSeat.AddRange(seatQry.Distinct());
-
             ViewBag.occSeat = occSeat;
+
+            //dummy susunan seat terkait model pesawat
+            ViewBag.seatCol = "ABCDEF";
+            ViewBag.seatRow = 6;
 
             return View();
         }
