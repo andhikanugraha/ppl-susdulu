@@ -55,6 +55,36 @@ namespace SusDulu.Controllers
             return View();
         }
 
+        public ActionResult Commit(string Email, string First_name, string Middle_name, string Last_name, string Address, string Phone, string Gender, string City, string Province, string Postcode, string Class, int Price, string Seat)
+        {
+            Debug.WriteLine("EMAIL: " + Email);
+            Debug.WriteLine("FIRST_NAME: " + First_name);
+            Debug.WriteLine("PRICE: " + Price);
+
+            //generate ID Ticket auto-increment
+            List<int> tickIDList = new List<int>();
+            var tickIDQry = from t in db.Tickets
+                              select t.ID;
+
+            tickIDList.AddRange(tickIDQry.Distinct());
+            int newID = tickIDList.Last() + 1;
+
+            Debug.WriteLine("NEW_ID: "+newID);
+
+            //dummy IDUser & IDFlight
+            int IDFlight = 1;
+            int IDUser = 1;
+
+            //insert to database
+            if (ModelState.IsValid)
+            {
+                Ticket newTicket = new Ticket(newID,IDUser,IDFlight,Email,First_name,Middle_name,Last_name,Address,Phone,Gender,City,Province,Postcode,Class,Price,Seat);
+                db.Tickets.Add(newTicket);
+                db.SaveChanges();
+            }
+            return View();
+        }
+
         //
         // POST: /Order/Create
 

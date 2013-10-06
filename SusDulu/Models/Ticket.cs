@@ -28,5 +28,24 @@ namespace SusDulu.Models
         public string Class { get; set; }
         public int Price { get; set; }
         public string Seat { get; set; }
+
+        public Ticket(int ID, int ID_user, int ID_flight, string Email, string First_name, string Middle_name, string Last_name, string Address, string Phone, string Gender, string City, string Province, string Postcode, string Class, int Price, string Seat)
+        {
+            this.ID = ID;
+            this.ID_user = ID_user;
+            this.Email = Email;
+            this.First_name = First_name;
+            this.Middle_name = Middle_name;
+            this.Last_name = Last_name;
+            this.Address = Address;
+            this.Phone = Phone;
+            this.Gender = Gender;
+            this.City = City;
+            this.Province = Province;
+            this.Postcode = Postcode;
+            this.Class = Class;
+            this.Price = Price;
+            this.Seat = Seat;
+        }
     }
 }

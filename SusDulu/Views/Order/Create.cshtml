@@ -6,7 +6,7 @@
 
 <h2>Order</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Commit","Order",FormMethod.Get)) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
@@ -156,7 +156,12 @@
             @Html.LabelFor(model => model.Price)
         </div>
         <div class="editor-field">
-            unspecified price
+            @{
+                string prc = "1000000";
+            }
+            @Html.Raw("Rp. "+prc+",00")
+            @Html.Hidden("Price",prc)
+
             @*@Html.EditorFor(model => model.Price)
             @Html.ValidationMessageFor(model => model.Price)*@
         </div>
