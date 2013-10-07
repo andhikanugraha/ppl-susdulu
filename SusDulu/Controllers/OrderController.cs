@@ -38,24 +38,36 @@ namespace SusDulu.Controllers
         //
         // GET: /Order/Create
 
-        public ActionResult Create()
+        public ActionResult Create(FlightOption flight = null)
         {
-            //daftar seat yang telah dipesan
-            List<string> occSeat = new List<string>();
+            if (flight != null)
+            {
+                Debug.WriteLine("SUM: " + flight.Sum);
+                Debug.WriteLine("FLIGHT1: " + flight.id_flight1);
+                Debug.WriteLine("FLIGHT2: " + flight.id_flight2);
 
-            var seatQry = from s in db.Tickets
-                          select s.Seat;
-            occSeat.AddRange(seatQry.Distinct());
-            ViewBag.occSeat = occSeat;
+                //daftar seat yang telah dipesan
+                List<string> occSeat = new List<string>();
 
-            //dummy susunan seat terkait model pesawat
-            ViewBag.seatCol = "ABCDEF";
-            ViewBag.seatRow = 6;
+                var seatQry = from s in db.Tickets
+                              select s.Seat;
+                occSeat.AddRange(seatQry.Distinct());
+                ViewBag.occSeat = occSeat;
+
+                //dummy susunan seat terkait model pesawat
+                ViewBag.seatCol = "ABCDEF";
+                ViewBag.seatRow = 6;
+
+                //pesan terkait tiket
+                ViewBag.Sum = flight.Sum;
+                ViewBag.IDFlight1 = flight.id_flight1;
+                ViewBag.IDFlight2 = flight.id_flight2;
+            }
 
             return View();
         }
 
-        public ActionResult Commit(string Email, string First_name, string Middle_name, string Last_name, string Address, string Phone, string Gender, string City, string Province, string Postcode, string Class, int Price, string Seat)
+        public ActionResult Commit(int id_flight1, int id_flight2, string Email, string First_name, string Middle_name, string Last_name, string Address, string Phone, string Gender, string City, string Province, string Postcode, string Class, int Price, string Seat, int Sum)
         {
             Debug.WriteLine("EMAIL: " + Email);
             Debug.WriteLine("FIRST_NAME: " + First_name);
@@ -82,25 +94,35 @@ namespace SusDulu.Controllers
                 db.Tickets.Add(newTicket);
                 db.SaveChanges();
             }
-            return View();
+
+            if (Sum == 1)
+            {
+                return View();
+            }
+            else
+            {
+                //Redirect ke halaman create lagi
+                Debug.WriteLine("SUM TIDAK NOL");
+                return RedirectToAction("Create", "Order", new FlightOption { id_flight1 = id_flight1, id_flight2 = id_flight2, Sum = Sum-1 });
+            }
+            //return View();
         }
 
         //
         // POST: /Order/Create
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Ticket ticket)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Tickets.Add(ticket);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //[HttpPost]
+        //public ActionResult Create(Ticket ticket)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Tickets.Add(ticket);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(ticket);
-        }
+        //    return View(ticket);
+        //}
 
         //
         // GET: /Order/Edit/5

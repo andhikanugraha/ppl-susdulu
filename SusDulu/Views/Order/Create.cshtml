@@ -7,27 +7,10 @@
 <h2>Order</h2>
 
 @using (Html.BeginForm("Commit","Order",FormMethod.Get)) {
-    @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Ticket</legend>
-
-        @*<div class="editor-label">
-            @Html.LabelFor(model => model.ID_user)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ID_user)
-            @Html.ValidationMessageFor(model => model.ID_user)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ID_flight)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ID_flight)
-            @Html.ValidationMessageFor(model => model.ID_flight)
-        </div>*@
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Email)
@@ -161,17 +144,12 @@
             }
             @Html.Raw("Rp. "+prc+",00")
             @Html.Hidden("Price",prc)
-
-            @*@Html.EditorFor(model => model.Price)
-            @Html.ValidationMessageFor(model => model.Price)*@
         </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Seat)
         </div>
         <div class="editor-field">
-            @*@Html.EditorFor(model => model.Seat)*@
-
             @{
                 List<SelectListItem> seatList = new List<SelectListItem>();
                 string col = ViewBag.seatCol;
@@ -202,6 +180,9 @@
         </div>
 
         <p>
+            <input name="id_flight1" type="hidden" value="@ViewBag.IDFlight1" />
+            <input name="id_flight2" type="hidden" value="@ViewBag.IDFlight2" />
+            <input name="Sum" type="hidden" value="@ViewBag.Sum" />
             <input type="submit" value="Order" />
         </p>
     </fieldset>

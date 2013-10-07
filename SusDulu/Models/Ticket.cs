@@ -14,18 +14,32 @@ namespace SusDulu.Models
         [Key]
         public int ID { get; set; }
         public int ID_user { get; set; }
+        [Required]
         public int ID_flight { get; set; }
+
+        [Required(ErrorMessage="Email is required")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage="First name is requireds")]
         public string First_name { get; set; }
         public string Middle_name { get; set; }
         public string Last_name { get; set; }
+
+        [Required(ErrorMessage="Address is required")]
         public string Address { get; set; }
+        [Required(ErrorMessage = "Phone is required")]
         public string Phone { get; set; }
+        [Required]
         public string Gender { get; set; }
+        [Required(ErrorMessage = "City is required")]
         public string City { get; set; }
+        [Required(ErrorMessage = "Province is required")]
         public string Province { get; set; }
+        [Required(ErrorMessage = "Postcode is required")]
         public string Postcode { get; set; }
+        [Required]
         public string Class { get; set; }
+        [Required]
         public int Price { get; set; }
         public string Seat { get; set; }
 
@@ -47,5 +61,12 @@ namespace SusDulu.Models
             this.Price = Price;
             this.Seat = Seat;
         }
+    }
+
+    public class FlightOption
+    {
+        public int id_flight1 { get; set; }
+        public int id_flight2 { get; set; }
+        public int Sum { get; set; }
     }
 }
