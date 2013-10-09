@@ -42,10 +42,6 @@ namespace SusDulu.Controllers
         {
             if (flight != null)
             {
-                Debug.WriteLine("SUM: " + flight.Sum);
-                Debug.WriteLine("FLIGHT1: " + flight.id_flight1);
-                Debug.WriteLine("FLIGHT2: " + flight.id_flight2);
-
                 //daftar seat yang telah dipesan
                 List<string> occSeat = new List<string>();
 
@@ -67,11 +63,13 @@ namespace SusDulu.Controllers
             return View();
         }
 
-        public ActionResult Commit(int id_flight1, int id_flight2, string Email, string First_name, string Middle_name, string Last_name, string Address, string Phone, string Gender, string City, string Province, string Postcode, string Class, int Price, string Seat, int Sum)
+        public ActionResult Commit(string[] Email, string[] First_name, string[] Middle_name, string[] Last_name, string[] Address, string[] Phone, string[] Gender, string[] City, string[] Province, string[] Postcode, string[] Class, int[] Price, string[] Seat, int[] Sum, int id_flight1, int id_flight2 = 0)
         {
-            Debug.WriteLine("EMAIL: " + Email);
-            Debug.WriteLine("FIRST_NAME: " + First_name);
-            Debug.WriteLine("PRICE: " + Price);
+            
+
+            Debug.WriteLine("EMAIL_length: " + Email.Length);
+            Debug.WriteLine("id_flight1: " + id_flight1);
+            Debug.WriteLine("id_flight2: " + id_flight2);
 
             //generate ID Ticket auto-increment
             List<int> tickIDList = new List<int>();
@@ -84,45 +82,27 @@ namespace SusDulu.Controllers
             Debug.WriteLine("NEW_ID: "+newID);
 
             //dummy IDUser & IDFlight
-            int IDFlight = 1;
             int IDUser = 1;
 
             //insert to database
-            if (ModelState.IsValid)
+            for (int k = 0; k < Email.Length; k++)
             {
-                Ticket newTicket = new Ticket(newID,IDUser,IDFlight,Email,First_name,Middle_name,Last_name,Address,Phone,Gender,City,Province,Postcode,Class,Price,Seat);
-                db.Tickets.Add(newTicket);
-                db.SaveChanges();
-            }
+                if (ModelState.IsValid)
+                {
+                    Ticket newTicket = new Ticket(newID, IDUser, id_flight1, Email[k], First_name[k], Middle_name[k], Last_name[k], Address[k], Phone[k], Gender[k], City[k], Province[k], Postcode[k], Class[k], Price[k], Seat[k]);
+                    db.Tickets.Add(newTicket);
+                    db.SaveChanges();
 
-            if (Sum == 1)
-            {
-                return View();
+                    if (id_flight2 != 0)
+                    {
+                        newTicket = new Ticket(newID, IDUser, id_flight2, Email[k], First_name[k], Middle_name[k], Last_name[k], Address[k], Phone[k], Gender[k], City[k], Province[k], Postcode[k], Class[k], Price[k], Seat[k]);
+                        db.Tickets.Add(newTicket);
+                        db.SaveChanges();
+                    }
+                }
             }
-            else
-            {
-                //Redirect ke halaman create lagi
-                Debug.WriteLine("SUM TIDAK NOL");
-                return RedirectToAction("Create", "Order", new FlightOption { id_flight1 = id_flight1, id_flight2 = id_flight2, Sum = Sum-1 });
-            }
-            //return View();
+            return View();
         }
-
-        //
-        // POST: /Order/Create
-
-        //[HttpPost]
-        //public ActionResult Create(Ticket ticket)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Tickets.Add(ticket);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(ticket);
-        //}
 
         //
         // GET: /Order/Edit/5
