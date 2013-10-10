@@ -63,6 +63,7 @@ namespace SusDulu.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult Commit(string[] Email, string[] First_name, string[] Middle_name, string[] Last_name, string[] Address, string[] Phone, string[] Gender, string[] City, string[] Province, string[] Postcode, string[] Class, int[] Price, string[] Seat, int[] Sum, int id_flight1, int id_flight2 = 0)
         {
             
@@ -77,7 +78,7 @@ namespace SusDulu.Controllers
                               select t.ID;
 
             tickIDList.AddRange(tickIDQry.Distinct());
-            int newID = tickIDList.Last() + 1;
+            int newID = 0;
 
             Debug.WriteLine("NEW_ID: "+newID);
 

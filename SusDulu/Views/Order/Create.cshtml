@@ -6,7 +6,7 @@
 
 <h2>Order</h2>
 
-@using (Html.BeginForm("Commit","Order",FormMethod.Get)) {
+@using (Html.BeginForm("Commit","Order",FormMethod.Post)) {
     @Html.ValidationSummary(true)
 
     for(var j = 0; j < ViewBag.Sum; j++)
