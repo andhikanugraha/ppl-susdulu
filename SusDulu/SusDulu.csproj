@@ -295,11 +295,6 @@
     <Content Include="Views\Flight\SearchIndex.cshtml" />
     <Content Include="Views\Flight\PrintTicket.cshtml" />
     <Content Include="Views\Flight\SearchTicket.cshtml" />
-    <Content Include="Views\Member\Create.cshtml" />
-    <Content Include="Views\Member\Delete.cshtml" />
-    <Content Include="Views\Member\Details.cshtml" />
-    <Content Include="Views\Member\Edit.cshtml" />
-    <Content Include="Views\Member\Index.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
