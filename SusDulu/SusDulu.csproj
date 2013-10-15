@@ -204,6 +204,7 @@
     <Compile Include="Controllers\FlightController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -212,6 +213,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Flight.cs" />
     <Compile Include="Models\Airport.cs" />
+    <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Plane.cs" />
     <Compile Include="Models\DefaultConnection.cs" />
     <Compile Include="Models\Ticket.cs" />
@@ -302,6 +304,7 @@
     <Content Include="Views\Order\Edit.cshtml" />
     <Content Include="Views\Order\Delete.cshtml" />
     <Content Include="Views\Order\Commit.cshtml" />
+    <Content Include="Views\Payment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
