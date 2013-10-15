@@ -65,12 +65,6 @@ namespace SusDulu.Controllers
 
         public ActionResult Commit(string[] Email, string[] First_name, string[] Middle_name, string[] Last_name, string[] Address, string[] Phone, string[] Gender, string[] City, string[] Province, string[] Postcode, string[] Class, int[] Price, string[] Seat, int[] Sum, int id_flight1, int id_flight2 = 0)
         {
-            
-
-            Debug.WriteLine("EMAIL_length: " + Email.Length);
-            Debug.WriteLine("id_flight1: " + id_flight1);
-            Debug.WriteLine("id_flight2: " + id_flight2);
-
             //generate ID Ticket auto-increment
             List<int> tickIDList = new List<int>();
             var tickIDQry = from t in db.Tickets
@@ -79,7 +73,7 @@ namespace SusDulu.Controllers
             tickIDList.AddRange(tickIDQry.Distinct());
             int newID = tickIDList.Last() + 1;
 
-            Debug.WriteLine("NEW_ID: "+newID);
+            Debug.WriteLine("newID: "+newID);
 
             //dummy IDUser & IDFlight
             int IDUser = 1;

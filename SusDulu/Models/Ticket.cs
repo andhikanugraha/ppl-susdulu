@@ -14,7 +14,6 @@ namespace SusDulu.Models
         [Key]
         public int ID { get; set; }
         public int ID_user { get; set; }
-        [Required]
         public int ID_flight { get; set; }
 
         [Required(ErrorMessage="Email is required")]
@@ -47,6 +46,7 @@ namespace SusDulu.Models
         {
             this.ID = ID;
             this.ID_user = ID_user;
+            this.ID_flight = ID_flight;
             this.Email = Email;
             this.First_name = First_name;
             this.Middle_name = Middle_name;
