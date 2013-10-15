@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Daftar Tiket Anda";
+}
+
+<h2>Daftar Tiket Anda</h2>
+
+@model List<SusDulu.Models.Ticket>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>ID Flight</th>
+        <th>Email</th>
+        <th>First Name</th>
+        <th>Middle Name</th>
+        <th>Last Name</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Gender</th>
+        <th>City</th>
+        <th>Province</th>
+        <th>Postcode</th>
+        <th>Class</th>
+        <th>Price</th>
+        <th>Seat</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.ID)</td>
+            <td>@Html.DisplayFor(modelItem => item.ID_flight)</td>
+            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+            <td>@Html.DisplayFor(modelItem => item.First_name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Middle_name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Last_name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Address)</td>
+            <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+            <td>@Html.DisplayFor(modelItem => item.Gender)</td>
+            <td>@Html.DisplayFor(modelItem => item.City)</td>
+            <td>@Html.DisplayFor(modelItem => item.Province)</td>
+            <td>@Html.DisplayFor(modelItem => item.Postcode)</td>
+            <td>@Html.DisplayFor(modelItem => item.Class)</td>
+            <td>@Html.DisplayFor(modelItem => item.Price)</td>
+            <td>@Html.DisplayFor(modelItem => item.Seat)</td>
+        </tr>
+    }
+</table>

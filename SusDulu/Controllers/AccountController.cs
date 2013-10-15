@@ -16,6 +16,8 @@ namespace SusDulu.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        DefaultConnection db = new DefaultConnection();
+
         //
         // GET: /Account/Login
 
@@ -201,6 +203,19 @@ namespace SusDulu.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+
+        public ActionResult TicketList()
+        {
+            var ticketList = new List<Ticket>();
+            var aquery = from ticket in db.Tickets
+                         select ticket;
+            //aquery = aquery.Where(t => t.ID_user.Equals(2));
+            
+            ticketList.AddRange(aquery.Distinct());
+
+            return View(ticketList);
         }
 
         #region helpers
