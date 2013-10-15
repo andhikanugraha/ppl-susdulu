@@ -58,13 +58,18 @@ namespace SusDulu.Controllers
                 ViewBag.Sum = flight.Sum;
                 ViewBag.IDFlight1 = flight.id_flight1;
                 ViewBag.IDFlight2 = flight.id_flight2;
+
+                if (this.Session["errSeat"] != null)
+                {
+                    ViewBag.errSeat = this.Session["errSeat"];
+                }
             }
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult Commit(string[] Email, string[] First_name, string[] Middle_name, string[] Last_name, string[] Address, string[] Phone, string[] Gender, string[] City, string[] Province, string[] Postcode, string[] Class, int[] Price, string[] Seat, int[] Sum, int id_flight1, int id_flight2 = 0)
+        public ActionResult Commit(string[] Email, string[] First_name, string[] Middle_name, string[] Last_name, string[] Address, string[] Phone, string[] Gender, string[] City, string[] Province, string[] Postcode, string[] Class, int[] Price, string[] Seat, int Sum, int id_flight1, int id_flight2 = 0)
         {
             //generate ID Ticket auto-increment
             List<int> tickIDList = new List<int>();
@@ -78,6 +83,14 @@ namespace SusDulu.Controllers
 
             //dummy IDUser & IDFlight
             int IDUser = 1;
+
+            //check no duplicate seat
+            if (HasDuplicates(Seat))
+            {
+                //ViewBag.errSeat = "You must choose different seat";
+                this.Session["errSeat"] = "You must choose different seat";
+                return RedirectToAction("create", new FlightOption { id_flight1=id_flight1, id_flight2=id_flight2, Sum=Sum});
+            }
 
             //insert to database
             for (int k = 0; k < Email.Length; k++)
@@ -97,6 +110,22 @@ namespace SusDulu.Controllers
                 }
             }
             return View();
+        }
+
+        private bool HasDuplicates(string[] array)
+        {
+            List<string> vals = new List<string>();
+            bool retval = false;
+            foreach (string s in array)
+            {
+                if (vals.Contains(s))
+                {
+                    retval = true;
+                    break;
+                }
+                vals.Add(s);
+            }
+            return retval;
         }
 
         //

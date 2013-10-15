@@ -6,6 +6,8 @@
 
 <h2>Order</h2>
 
+<label style="color:red">@ViewBag.errSeat</label>
+
 @using (Html.BeginForm("Commit","Order",FormMethod.Post)) {
     @Html.ValidationSummary(true)
 
@@ -113,7 +115,6 @@
                 @Html.LabelFor(model => model.Class)
             </div>
             <div class="editor-field">
-                @*@Html.EditorFor(model => model.Class)*@
                 @{
                     List<SelectListItem> classList = new List<SelectListItem>();
                     classList.Add(new SelectListItem{
@@ -185,11 +186,12 @@
                 <input name="id_flight1" type="hidden" value="@ViewBag.IDFlight1" />
                 <input name="id_flight2" type="hidden" value="@ViewBag.IDFlight2" />
                 <input name="Sum" type="hidden" value="@ViewBag.Sum" />
-                <input type="submit" value="Order" />
+                @*<input type="submit" value="Order" />*@
                 <br />
             </p>
         </fieldset>
     }
+    <input type="submit" value="Order" />
     
 }
 
