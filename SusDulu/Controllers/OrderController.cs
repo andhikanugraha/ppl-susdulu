@@ -109,7 +109,8 @@ namespace SusDulu.Controllers
                     }
                 }
             }
-            return View();
+            //return View();
+            return RedirectToAction("Index","Payment");
         }
 
         private bool HasDuplicates(string[] array)
