@@ -219,6 +219,20 @@ namespace SusDulu.Controllers
             return View(ticketList);
         }
 
+       // [HttpPost, ActionName("Delete")]
+        public ActionResult Delete(int idTiket)
+        {
+            Ticket tiket = db.Tickets.Find(idTiket);
+            if (tiket == null)
+            {
+                return HttpNotFound();
+            }
+            db.Tickets.Remove(tiket);
+            db.SaveChanges();
+            
+            return RedirectToAction("Ticketlist");
+        }
+
         #region helpers
         private ActionResult RedirectToLocal(string returnUrl)
         {
