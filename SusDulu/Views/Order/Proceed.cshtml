@@ -1,8 +1,10 @@
 ﻿@{
-    ViewBag.Title = "Payment";
+    ViewBag.Title = "Proceed";
 }
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+<h2>Proceed</h2>
+
+@using (Html.BeginForm("Index", "Payment", FormMethod.Post))
 {
     @Html.ValidationSummary(true)
 

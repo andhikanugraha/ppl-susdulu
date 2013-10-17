@@ -303,9 +303,9 @@
     <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\Order\Edit.cshtml" />
     <Content Include="Views\Order\Delete.cshtml" />
-    <Content Include="Views\Order\Commit.cshtml" />
-		<Content Include="Views\Account\TicketList.cshtml" />
+    <Content Include="Views\Account\TicketList.cshtml" />
     <Content Include="Views\Payment\Index.cshtml" />
+    <Content Include="Views\Order\Proceed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

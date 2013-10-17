@@ -8,7 +8,7 @@
 
 <label style="color:red">@ViewBag.errSeat</label>
 
-@using (Html.BeginForm("Commit","Order",FormMethod.Post)) {
+@using (Html.BeginForm("Proceed","Order",FormMethod.Post)) {
     @Html.ValidationSummary(true)
 
     for(var j = 0; j < ViewBag.Sum; j++)
@@ -68,7 +68,6 @@
                 @Html.LabelFor(model => model.Gender)
             </div>
             <div class="editor-field">
-                @*@Html.EditorFor(model => model.Gender)*@
                 @{
                     List<SelectListItem> genderList = new List<SelectListItem>();
                     genderList.Add(new SelectListItem{

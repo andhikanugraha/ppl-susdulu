@@ -69,64 +69,58 @@ namespace SusDulu.Controllers
         }
 
         [HttpPost]
-        public ActionResult Commit(string[] Email, string[] First_name, string[] Middle_name, string[] Last_name, string[] Address, string[] Phone, string[] Gender, string[] City, string[] Province, string[] Postcode, string[] Class, int[] Price, string[] Seat, int Sum, int id_flight1, int id_flight2 = 0)
+        public ActionResult Proceed(string[] Email, string[] First_name, string[] Middle_name, string[] Last_name, string[] Address, string[] Phone, string[] Gender, string[] City, string[] Province, string[] Postcode, string[] Class, int[] Price, string[] Seat, int Sum, int id_flight1, int id_flight2 = 0)
         {
-            //generate ID Ticket auto-increment
-            List<int> tickIDList = new List<int>();
-            var tickIDQry = from t in db.Tickets
-                              select t.ID;
-
-            tickIDList.AddRange(tickIDQry.Distinct());
-            int newID = 0;
-
-            Debug.WriteLine("newID: "+newID);
-
-            //dummy IDUser & IDFlight
-            int IDUser = 1;
-
-            //check no duplicate seat
-            if (HasDuplicates(Seat))
-            {
-                //ViewBag.errSeat = "You must choose different seat";
-                this.Session["errSeat"] = "You must choose different seat";
-                return RedirectToAction("create", new FlightOption { id_flight1=id_flight1, id_flight2=id_flight2, Sum=Sum});
-            }
+            List<string> emailL = new List<string>();
+            List<string> firstL = new List<string>();
+            List<string> middleL = new List<string>();
+            List<string> lastL = new List<string>();
+            List<string> addressL = new List<string>();
+            List<string> phoneL = new List<string>();
+            List<string> genderL = new List<string>();
+            List<string> cityL = new List<string>();
+            List<string> provinceL = new List<string>();
+            List<string> postcodeL = new List<string>();
+            List<string> classL = new List<string>();
+            List<int> priceL = new List<int>();
+            List<string> seatL = new List<string>();
 
             //insert to database
             for (int k = 0; k < Email.Length; k++)
             {
-                if (ModelState.IsValid)
-                {
-                    Ticket newTicket = new Ticket(newID, IDUser, id_flight1, Email[k], First_name[k], Middle_name[k], Last_name[k], Address[k], Phone[k], Gender[k], City[k], Province[k], Postcode[k], Class[k], Price[k], Seat[k]);
-                    db.Tickets.Add(newTicket);
-                    db.SaveChanges();
-
-                    if (id_flight2 != 0)
-                    {
-                        newTicket = new Ticket(newID, IDUser, id_flight2, Email[k], First_name[k], Middle_name[k], Last_name[k], Address[k], Phone[k], Gender[k], City[k], Province[k], Postcode[k], Class[k], Price[k], Seat[k]);
-                        db.Tickets.Add(newTicket);
-                        db.SaveChanges();
-                    }
-                }
+                emailL.Add(Email[k]);
+                firstL.Add(First_name[k]);
+                middleL.Add(Middle_name[k]);
+                lastL.Add(Last_name[k]);
+                addressL.Add(Address[k]);
+                phoneL.Add(Phone[k]);
+                genderL.Add(Gender[k]);
+                cityL.Add(City[k]);
+                provinceL.Add(Province[k]);
+                postcodeL.Add(Postcode[k]);
+                classL.Add(Class[k]);
+                priceL.Add(Price[k]);
+                seatL.Add(Seat[k]);
             }
-            //return View();
-            return RedirectToAction("Index","Payment");
-        }
 
-        private bool HasDuplicates(string[] array)
-        {
-            List<string> vals = new List<string>();
-            bool retval = false;
-            foreach (string s in array)
-            {
-                if (vals.Contains(s))
-                {
-                    retval = true;
-                    break;
-                }
-                vals.Add(s);
-            }
-            return retval;
+            TempData["email"] = emailL;
+            TempData["first"] = firstL;
+            TempData["middle"]= middleL;
+            TempData["last"] = lastL;
+            TempData["address"] = addressL;
+            TempData["phone"] = phoneL;
+            TempData["gender"] = genderL;
+            TempData["city"] = cityL;
+            TempData["province"] = provinceL;
+            TempData["postcode"] = postcodeL;
+            TempData["class"] = classL;
+            TempData["price"] = priceL;
+            TempData["seat"] = seatL;
+            TempData["idFlight1"] = id_flight1;
+            TempData["idFlight2"] = id_flight2;
+            TempData["sum"] = Sum;
+
+            return View();
         }
 
         //
