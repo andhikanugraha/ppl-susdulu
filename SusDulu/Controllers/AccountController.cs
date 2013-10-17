@@ -10,6 +10,7 @@ using WebMatrix.WebData;
 using SusDulu.Models;
 using System.Diagnostics;
 using SusDulu.Helpers;
+using System.Web.Security;
 
 namespace SusDulu.Controllers
 {
@@ -211,11 +212,25 @@ namespace SusDulu.Controllers
             var ticketList = new List<Ticket>();
             var aquery = from ticket in db.Tickets
                          select ticket;
-            //aquery = aquery.Where(t => t.ID_user.Equals(2));
+            aquery = aquery.Where(t => t.ID_user.Equals(WebSecurity.CurrentUserId));
             
             ticketList.AddRange(aquery.Distinct());
 
             return View(ticketList);
+        }
+
+       // [HttpPost, ActionName("Delete")]
+        public ActionResult Delete(int idTiket)
+        {
+            Ticket tiket = db.Tickets.Find(idTiket);
+            if (tiket == null)
+            {
+                return HttpNotFound();
+            }
+            db.Tickets.Remove(tiket);
+            db.SaveChanges();
+            
+            return RedirectToAction("Ticketlist");
         }
 
         #region helpers

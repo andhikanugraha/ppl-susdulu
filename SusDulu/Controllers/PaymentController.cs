@@ -39,11 +39,11 @@ namespace SusDulu.Controllers
             List<int> tickIDList = new List<int>();
             var tickIDQry = from t in db.Tickets
                             select t.ID;
-            tickIDList.AddRange(tickIDQry.Distinct());            
-            int newID = 0;
-            Debug.WriteLine("newID: " + newID);
+            tickIDList.AddRange(tickIDQry.Distinct());
+            int lastElmt = tickIDList.Last();
+            int newID = lastElmt + 1;
 
-            //query idUser
+            //query IDUser
             int IDUser = 1;
 
             //check no duplicate seat
@@ -58,20 +58,29 @@ namespace SusDulu.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Ticket newTicket = new Ticket(newID, IDUser, id_flight1, emailL.ElementAt(k), firstL.ElementAt(k), middleL.ElementAt(k), lastL.ElementAt(k), addressL.ElementAt(k), phoneL.ElementAt(k), genderL.ElementAt(k), cityL.ElementAt(k), provinceL.ElementAt(k), postcodeL.ElementAt(k), classL.ElementAt(k), priceL.ElementAt(k), seatL.ElementAt(k));
-                    db.Tickets.Add(newTicket);
-                    db.SaveChanges();
+                    //get certain IDUser
+                    List<int> userIDList = new List<int>();
+                    
 
-                    if (id_flight2 != 0)
-                    {
-                        newTicket = new Ticket(newID, IDUser, id_flight1, emailL.ElementAt(k), firstL.ElementAt(k), middleL.ElementAt(k), lastL.ElementAt(k), addressL.ElementAt(k), phoneL.ElementAt(k), genderL.ElementAt(k), cityL.ElementAt(k), provinceL.ElementAt(k), postcodeL.ElementAt(k), classL.ElementAt(k), priceL.ElementAt(k), seatL.ElementAt(k));
-                        db.Tickets.Add(newTicket);
-                        db.SaveChanges();
-                    }
+                    Ticket newTicket = new Ticket(newID, IDUser, id_flight1, emailL.ElementAt(k), firstL.ElementAt(k), middleL.ElementAt(k), lastL.ElementAt(k), addressL.ElementAt(k), phoneL.ElementAt(k), genderL.ElementAt(k), cityL.ElementAt(k), provinceL.ElementAt(k), postcodeL.ElementAt(k), classL.ElementAt(k), priceL.ElementAt(k), seatL.ElementAt(k));
+                    CommitDB(id_flight1,newTicket);
+
+                    newTicket = new Ticket(newID, IDUser, id_flight2, emailL.ElementAt(k), firstL.ElementAt(k), middleL.ElementAt(k), lastL.ElementAt(k), addressL.ElementAt(k), phoneL.ElementAt(k), genderL.ElementAt(k), cityL.ElementAt(k), provinceL.ElementAt(k), postcodeL.ElementAt(k), classL.ElementAt(k), priceL.ElementAt(k), seatL.ElementAt(k));
+                    CommitDB(id_flight2,newTicket);
                 }
             }
 
             return RedirectToAction("Index","Home");
+        }
+
+        private void CommitDB(int IDFlight, Ticket ticket)
+        {
+            if (IDFlight != 0)
+            {
+                db.Tickets.Add(ticket);
+                db.SaveChanges();
+            }
+            return;
         }
 
         private bool HasDuplicates(List<string> array)
