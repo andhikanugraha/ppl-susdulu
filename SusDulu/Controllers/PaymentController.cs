@@ -43,9 +43,6 @@ namespace SusDulu.Controllers
             int lastElmt = tickIDList.Last();
             int newID = lastElmt + 1;
 
-            //query IDUser
-            int IDUser = 1;
-
             //check no duplicate seat
             if (HasDuplicates(seatL))
             {
@@ -60,7 +57,12 @@ namespace SusDulu.Controllers
                 {
                     //get certain IDUser
                     List<int> userIDList = new List<int>();
-                    
+                    string temp = emailL.ElementAt(k);
+                    var userIDQry = from u in db.Users
+                                    where u.Email == temp
+                                    select u.ID;
+                    userIDList.AddRange(userIDQry.Distinct());
+                    int IDUser = userIDList.First();
 
                     Ticket newTicket = new Ticket(newID, IDUser, id_flight1, emailL.ElementAt(k), firstL.ElementAt(k), middleL.ElementAt(k), lastL.ElementAt(k), addressL.ElementAt(k), phoneL.ElementAt(k), genderL.ElementAt(k), cityL.ElementAt(k), provinceL.ElementAt(k), postcodeL.ElementAt(k), classL.ElementAt(k), priceL.ElementAt(k), seatL.ElementAt(k));
                     CommitDB(id_flight1,newTicket);
