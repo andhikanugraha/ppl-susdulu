@@ -13,7 +13,7 @@ namespace SusDulu.Models
     {
         [Key]
         public int ID { get; set; }
-        public int ID_user { get; set; }
+        public int? ID_user { get; set; }
         public int ID_flight { get; set; }
 
         [Required(ErrorMessage="Email is required")]
