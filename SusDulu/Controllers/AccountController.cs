@@ -11,6 +11,7 @@ using SusDulu.Models;
 using System.Diagnostics;
 using SusDulu.Helpers;
 using System.Web.Security;
+using RazorPDF;
 
 namespace SusDulu.Controllers
 {
@@ -231,6 +232,19 @@ namespace SusDulu.Controllers
             db.SaveChanges();
             
             return RedirectToAction("Ticketlist");
+        }
+
+        public ActionResult Print(int idTiket)
+        {
+            Ticket tiket = db.Tickets.Find(idTiket);
+            if (tiket == null)
+            {
+                return HttpNotFound();
+            }
+
+            var pdfresult = new PdfResult(tiket,"Print");
+            return pdfresult;
+
         }
 
         #region helpers
