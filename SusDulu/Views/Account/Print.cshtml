@@ -140,7 +140,51 @@
             </cell>
         </row>
 
+        <row>
+            <cell>
+                <chunk style="font-weight:bold;">Flight Number:</chunk>
+            </cell>
+            <cell>
+                <chunk style="">@Model.getPenerbangan().Flight_number</chunk>
+            </cell>
+        </row>
 
+        <row>
+            <cell>
+                <chunk style="font-weight:bold;">Departure:</chunk>
+            </cell>
+            <cell>
+                <chunk style="">@Model.getPenerbangan().Departure_date , @Model.getPenerbangan().Departure_time </chunk>
+                </cell>
+            </row>
+        <row>
+            <cell>
+                <chunk style="font-weight:bold;">Arrival:</chunk>
+            </cell>
+            <cell>
+                <chunk style="">@Model.getPenerbangan().Arrival_date , @Model.getPenerbangan().Arrival_time </chunk>
+                </cell>
+            </row>
+
+        <row>
+            <cell>
+                <chunk style="font-weight:bold;">Origin:</chunk>
+            </cell>
+            <cell>
+                <chunk style="">@Model.getPenerbangan().Origin</chunk>
+                </cell>
+            </row>
+
+        <row>
+            <cell>
+                <chunk style="font-weight:bold;">Destination:</chunk>
+            </cell>
+            <cell>
+                <chunk style="">@Model.getPenerbangan().Destination</chunk>
+                </cell>
+            </row>
+
+       
 
     </table>
 </itext>
