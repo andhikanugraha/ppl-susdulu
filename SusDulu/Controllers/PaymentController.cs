@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using WebMatrix.WebData;
 
 namespace SusDulu.Controllers
 {
@@ -51,21 +53,18 @@ namespace SusDulu.Controllers
                 return RedirectToAction("create", new FlightOption { id_flight1 = id_flight1, id_flight2 = id_flight2, Sum = sum });
             }
 
+            int IDUser = WebSecurity.CurrentUserId;
+            Debug.WriteLine("IDUSER: "+IDUser);
+
             for (int k = 0; k < emailL.Count; k++)
             {
                 if (ModelState.IsValid)
                 {
                     //get certain IDUser
                     List<int> userIDList = new List<int>();
-                    string temp = emailL.ElementAt(k);
-                    var userIDQry = from u in db.Users
-                                    where u.Email == temp
-                                    select u.ID;
-                    userIDList.AddRange(userIDQry.Distinct());
-                    int IDUser = userIDList.First();
 
                     Ticket newTicket = new Ticket(newID, IDUser, id_flight1, emailL.ElementAt(k), firstL.ElementAt(k), middleL.ElementAt(k), lastL.ElementAt(k), addressL.ElementAt(k), phoneL.ElementAt(k), genderL.ElementAt(k), cityL.ElementAt(k), provinceL.ElementAt(k), postcodeL.ElementAt(k), classL.ElementAt(k), priceL.ElementAt(k), seatL.ElementAt(k));
-                    CommitDB(id_flight1,newTicket);
+                    CommitDB(id_flight1, newTicket);
 
                     newTicket = new Ticket(newID, IDUser, id_flight2, emailL.ElementAt(k), firstL.ElementAt(k), middleL.ElementAt(k), lastL.ElementAt(k), addressL.ElementAt(k), phoneL.ElementAt(k), genderL.ElementAt(k), cityL.ElementAt(k), provinceL.ElementAt(k), postcodeL.ElementAt(k), classL.ElementAt(k), priceL.ElementAt(k), seatL.ElementAt(k));
                     CommitDB(id_flight2,newTicket);
