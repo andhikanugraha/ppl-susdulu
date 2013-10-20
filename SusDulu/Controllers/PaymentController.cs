@@ -53,7 +53,9 @@ namespace SusDulu.Controllers
                 return RedirectToAction("create", new FlightOption { id_flight1 = id_flight1, id_flight2 = id_flight2, Sum = sum });
             }
 
-            int IDUser = WebSecurity.CurrentUserId;
+            int? IDUser = WebSecurity.CurrentUserId;
+            if (IDUser < 0) IDUser = null;
+
             Debug.WriteLine("IDUSER: "+IDUser);
 
             for (int k = 0; k < emailL.Count; k++)

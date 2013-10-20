@@ -13,7 +13,7 @@ namespace SusDulu.Models
     {
         [Key]
         public int ID { get; set; }
-        public int ID_user { get; set; }
+        public int? ID_user { get; set; }
         public int ID_flight { get; set; }
 
         [Required(ErrorMessage="Email is required")]
@@ -42,7 +42,7 @@ namespace SusDulu.Models
         public int Price { get; set; }
         public string Seat { get; set; }
 
-        public Ticket(int ID, int ID_user, int ID_flight, string Email, string First_name, string Middle_name, string Last_name, string Address, string Phone, string Gender, string City, string Province, string Postcode, string Class, int Price, string Seat)
+        public Ticket(int ID, int? ID_user, int ID_flight, string Email, string First_name, string Middle_name, string Last_name, string Address, string Phone, string Gender, string City, string Province, string Postcode, string Class, int Price, string Seat)
         {
             this.ID = ID;
             this.ID_user = ID_user;
