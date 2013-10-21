@@ -50,7 +50,7 @@ namespace SusDulu.Controllers
             {
                 //ViewBag.errSeat = "You must choose different seat";
                 this.Session["errSeat"] = "You must choose different seat";
-                return RedirectToAction("create", new FlightOption { id_flight1 = id_flight1, id_flight2 = id_flight2, Sum = sum });
+                return RedirectToAction("create", "Order", new FlightOption { id_flight1 = id_flight1, id_flight2 = id_flight2, Sum = sum });
             }
 
             int? IDUser = WebSecurity.CurrentUserId;
@@ -73,7 +73,9 @@ namespace SusDulu.Controllers
                 }
             }
 
-            return RedirectToAction("Index","Home");
+            ViewBag.sum = sum;
+            ViewBag.firstID = newID;
+            return View();
         }
 
         private void CommitDB(int IDFlight, Ticket ticket)

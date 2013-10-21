@@ -49,6 +49,8 @@ namespace SusDulu.Controllers
                 flightList2.AddRange(flightQuery.Distinct());
             }
 
+            Session["jmlTiket"] = model.Sum;
+
             return View(new OptionsModel() { TripType = model.TripType, Flights1 = flightList1, Flights2 = flightList2, Sum = model.Sum });
         }
 

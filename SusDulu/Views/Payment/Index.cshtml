@@ -5,34 +5,12 @@
 @using (Html.BeginForm("Index", "Home", FormMethod.Post))
 {
     @Html.ValidationSummary(true)
+    
+    int IDFirst = ViewBag.firstID;
+    int IDLast = IDFirst - 1 + ViewBag.sum;
+    for (int i = IDFirst; i <= IDLast; i++)
+    {
+        @Html.ActionLink("Cetak", "Print", "Account", new { idTiket = i }, new { idTiket = i })
+    }
 
-    <fieldset>
-        <legend>Payment Data</legend>
-
-        @if (!Request.IsAuthenticated)
-        {
-            <div class="editor-label">
-                <label>Email: </label>
-            </div>
-            <div class="editor-field">
-                <input type="text" name="email" />            
-            </div>
-
-            <div class="editor-label">
-                <label>Name: </label>
-            </div>
-            <div class="editor-field">
-                <input type="text" name="name" />
-            </div>
-        }
-
-        <div class="editor-label">
-            <label>Credit Card Number: </label>
-        </div>
-        <div class="editor-field">
-            <input type="text" name="ccnumber" />
-        </div>
-
-        <input type="submit" value="Purchase" />
-    </fieldset>
 }

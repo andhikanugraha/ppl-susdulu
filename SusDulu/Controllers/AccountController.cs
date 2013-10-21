@@ -234,6 +234,7 @@ namespace SusDulu.Controllers
             return RedirectToAction("Ticketlist");
         }
 
+        [AllowAnonymous]
         public ActionResult Print(int idTiket)
         {
             Ticket tiket = db.Tickets.Find(idTiket);
