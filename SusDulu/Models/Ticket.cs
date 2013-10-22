@@ -17,9 +17,10 @@ namespace SusDulu.Models
         public int ID_flight { get; set; }
 
         [Required(ErrorMessage="Email is required")]
+        [EmailAddress(ErrorMessage="E-mail is not valid")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage="First name is requireds")]
+        [Required(ErrorMessage="First name is required")]
         public string First_name { get; set; }
         public string Middle_name { get; set; }
         public string Last_name { get; set; }
