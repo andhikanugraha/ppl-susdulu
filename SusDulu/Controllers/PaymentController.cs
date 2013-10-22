@@ -65,7 +65,9 @@ namespace SusDulu.Controllers
                 }
             }
 
-            return RedirectToAction("Index","Home");
+            ViewBag.sum = sum;
+            ViewBag.firstID = newID;
+            return View();
         }
 
         private void CommitDB(int IDFlight, Ticket ticket)

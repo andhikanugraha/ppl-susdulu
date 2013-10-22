@@ -10,6 +10,7 @@ using WebMatrix.WebData;
 using SusDulu.Models;
 using System.Diagnostics;
 using SusDulu.Helpers;
+using RazorPDF;
 
 namespace SusDulu.Controllers
 {
@@ -211,7 +212,7 @@ namespace SusDulu.Controllers
             var ticketList = new List<Ticket>();
             var aquery = from ticket in db.Tickets
                          select ticket;
-            aquery = aquery.Where(t => t.ID_user.Equals(WebSecurity.CurrentUserId));
+            aquery = aquery.Where(t => t.ID_user == WebSecurity.CurrentUserId);
             
             ticketList.AddRange(aquery.Distinct());
 
@@ -230,6 +231,20 @@ namespace SusDulu.Controllers
             db.SaveChanges();
             
             return RedirectToAction("Ticketlist");
+        }
+
+        [AllowAnonymous]
+        public ActionResult Print(int idTiket)
+        {
+            Ticket tiket = db.Tickets.Find(idTiket);
+            if (tiket == null)
+            {
+                return HttpNotFound();
+            }
+
+            var pdfresult = new PdfResult(tiket,"Print");
+            return pdfresult;
+
         }
 
         #region helpers

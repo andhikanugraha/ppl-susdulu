@@ -23,6 +23,12 @@
         <th>Class</th>
         <th>Price</th>
         <th>Seat</th>
+        <th>Flight Number</th>
+        <th>Departure</th>
+        <th>Arrival</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th></th>
         <th></th>
     </tr>
     @foreach (var item in Model)
@@ -43,6 +49,11 @@
             <td>@Html.DisplayFor(modelItem => item.Class)</td>
             <td>@Html.DisplayFor(modelItem => item.Price)</td>
             <td>@Html.DisplayFor(modelItem => item.Seat)</td>
+            <td>@Html.DisplayFor(modelItem => item.getPenerbangan().Flight_number)</td>
+            <td>@Html.DisplayFor(modelItem => item.getPenerbangan().Departure_date), @Html.DisplayFor(modelItem => item.getPenerbangan().Departure_time) </td>
+            <td>@Html.DisplayFor(modelItem => item.getPenerbangan().Arrival_date), @Html.DisplayFor(modelItem => item.getPenerbangan().Arrival_time) </td>
+            <td>@Html.DisplayFor(modelItem => item.getPenerbangan().Origin)</td>
+            <td>@Html.DisplayFor(modelItem => item.getPenerbangan().Destination)</td>
             <td>
                 @Html.ActionLink("Batalkan", "Delete", new { idTiket = item.ID },
                 new { onclick = "return confirm('Apakah Anda yakin ingin membatalkan tiket ini?');" }) 
@@ -52,7 +63,11 @@
                     <button>Batalkan</button>
                 }*@
             </td>
-                    
+            <td>
+                @Html.ActionLink("Cetak", "Print", new { idTiket = item.ID })
+            </td>
+           
+
         </tr>
     }
 </table>
