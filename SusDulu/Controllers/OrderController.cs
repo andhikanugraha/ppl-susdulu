@@ -85,7 +85,6 @@ namespace SusDulu.Controllers
             List<int> priceL = new List<int>();
             List<string> seatL = new List<string>();
 
-            //insert to database
             for (int k = 0; k < Email.Length; k++)
             {
                 emailL.Add(Email[k]);
@@ -101,6 +100,13 @@ namespace SusDulu.Controllers
                 classL.Add(Class[k]);
                 priceL.Add(Price[k]);
                 seatL.Add(Seat[k]);
+            }
+
+            //Duplication Check
+            if (HasDuplicates(seatL))
+            {
+                TempData["errSeat"] = "You must choose different seat";
+                return RedirectToAction("create", new FlightOption { id_flight1 = id_flight1, id_flight2 = id_flight2, Sum = Sum });
             }
 
             TempData["email"] = emailL;
@@ -121,6 +127,22 @@ namespace SusDulu.Controllers
             TempData["sum"] = Sum;
 
             return View();
+        }
+
+        private bool HasDuplicates(List<string> array)
+        {
+            List<string> vals = new List<string>();
+            bool retval = false;
+            foreach (string s in array)
+            {
+                if (vals.Contains(s))
+                {
+                    retval = true;
+                    break;
+                }
+                vals.Add(s);
+            }
+            return retval;
         }
 
         //

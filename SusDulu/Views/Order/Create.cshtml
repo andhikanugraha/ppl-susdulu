@@ -6,7 +6,7 @@
 
 <h2>Order</h2>
 
-<label style="color:red">@ViewBag.errSeat</label>
+<label style="color:red">@TempData["errSeat"]</label>
 
 @using (Html.BeginForm("Proceed","Order",FormMethod.Post)) {
     @Html.ValidationSummary(true)

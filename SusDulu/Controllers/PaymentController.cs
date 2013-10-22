@@ -45,14 +45,6 @@ namespace SusDulu.Controllers
             int lastElmt = tickIDList.Last();
             int newID = lastElmt + 1;
 
-            //check no duplicate seat
-            if (HasDuplicates(seatL))
-            {
-                //ViewBag.errSeat = "You must choose different seat";
-                this.Session["errSeat"] = "You must choose different seat";
-                return RedirectToAction("create", new FlightOption { id_flight1 = id_flight1, id_flight2 = id_flight2, Sum = sum });
-            }
-
             int? IDUser = WebSecurity.CurrentUserId;
             if (IDUser < 0) IDUser = null;
 
@@ -85,22 +77,5 @@ namespace SusDulu.Controllers
             }
             return;
         }
-
-        private bool HasDuplicates(List<string> array)
-        {
-            List<string> vals = new List<string>();
-            bool retval = false;
-            foreach (string s in array)
-            {
-                if (vals.Contains(s))
-                {
-                    retval = true;
-                    break;
-                }
-                vals.Add(s);
-            }
-            return retval;
-        }
-
     }
 }
