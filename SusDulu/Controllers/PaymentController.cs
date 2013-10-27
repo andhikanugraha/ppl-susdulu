@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using WebMatrix.WebData;
+using RazorPDF;
 
 namespace SusDulu.Controllers
 {
@@ -36,6 +37,10 @@ namespace SusDulu.Controllers
             int id_flight1 = int.Parse(TempData["idFlight1"].ToString());
             int id_flight2 = int.Parse(TempData["idFlight2"].ToString());
             int sum = int.Parse(TempData["sum"].ToString());
+            if (id_flight2 != 0)
+            {
+                sum *= 2;
+            }
 
             //generate ID Ticket auto-increment
             List<int> tickIDList = new List<int>();
@@ -86,6 +91,20 @@ namespace SusDulu.Controllers
                 db.SaveChanges();
             }
             return;
+        }
+
+        [AllowAnonymous]
+        public ActionResult Print(int idTiket)
+        {
+            Ticket tiket = db.Tickets.Find(idTiket);
+            if (tiket == null)
+            {
+                return HttpNotFound();
+            }
+
+            var pdfresult = new PdfResult(tiket, "Print");
+            return pdfresult;
+
         }
     }
 }

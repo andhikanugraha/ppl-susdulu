@@ -24,11 +24,9 @@
                     <div class="current-user">
                         <i class="glyphicon glyphicon-user"></i> @User.Identity.Name
                     </div>
-                    <div>
-                        <a href="@Url.Action("TicketList", "Account")" class="btn btn-sm btn-default"> Daftar Tiket</a>
-                    </div>
                 
                     <div class="current-user-actions">
+                        <a href="@Url.Action("TicketList", "Account")" class="btn btn-sm btn-default"> Daftar Tiket</a>
                         <a href="@Url.Action("Manage", "Account")" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-cog"></i> Pengaturan Akun</a>
                         @Html.AntiForgeryToken()
                         <button type="submit" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-log-out"></i> Logout</button>

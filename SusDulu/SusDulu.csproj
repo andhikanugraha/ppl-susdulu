@@ -375,6 +375,7 @@
     <Content Include="Views\Payment\Index.cshtml" />
     <Content Include="Views\Order\Proceed.cshtml" />
     <Content Include="Views\Account\Print.cshtml" />
+    <Content Include="Views\Payment\Print.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,25 +9,26 @@
 <table class="table">
     <tr>
         <th>ID</th>
-        <th>ID Flight</th>
-        <th>Email</th>
-        <th>First Name</th>
-        <th>Middle Name</th>
-        <th>Last Name</th>
-        <th>Address</th>
-        <th>Phone</th>
-        <th>Gender</th>
-        <th>City</th>
-        <th>Province</th>
-        <th>Postcode</th>
-        <th>Class</th>
-        <th>Price</th>
-        <th>Seat</th>
-        <th>Flight Number</th>
-        <th>Departure</th>
-        <th>Arrival</th>
-        <th>Origin</th>
-        <th>Destination</th>
+        @*<th>ID Penerbangan</th>*@
+        <th>Alamat surel</th>
+        <th>Nama</th>
+        @*<th>Nama depan</th>
+        <th>Nama tengah</th>
+        <th>Nama belakang</th>*@
+        @*<th>Alamat</th>
+        <th>Nomor telepon</th>
+        <th>Jenis kelamin</th>
+        <th>Kota</th>
+        <th>Provinsi</th>
+        <th>Kode Pos</th>*@
+        <th>Kelas</th>
+        <th>Harga</th>
+        <th>Tempat duduk</th>
+        <th>Nomor penerbangan</th>
+        <th>Waktu keberangkatan</th>
+        <th>Waktu kedatangan</th>
+        <th>Bandara asal</th>
+        <th>Bandara tujuan</th>
         <th></th>
         <th></th>
     </tr>
@@ -35,9 +36,10 @@
     {
         <tr>
             <td>@Html.DisplayFor(modelItem => item.ID)</td>
-            <td>@Html.DisplayFor(modelItem => item.ID_flight)</td>
+            @*<td>@Html.DisplayFor(modelItem => item.ID_flight)</td>*@
             <td>@Html.DisplayFor(modelItem => item.Email)</td>
-            <td>@Html.DisplayFor(modelItem => item.First_name)</td>
+            <td>@Html.DisplayFor(modelItem => item.First_name) @Html.DisplayFor(modelItem => item.Last_name)</td>
+            @*<td>@Html.DisplayFor(modelItem => item.First_name)</td>
             <td>@Html.DisplayFor(modelItem => item.Middle_name)</td>
             <td>@Html.DisplayFor(modelItem => item.Last_name)</td>
             <td>@Html.DisplayFor(modelItem => item.Address)</td>
@@ -45,7 +47,7 @@
             <td>@Html.DisplayFor(modelItem => item.Gender)</td>
             <td>@Html.DisplayFor(modelItem => item.City)</td>
             <td>@Html.DisplayFor(modelItem => item.Province)</td>
-            <td>@Html.DisplayFor(modelItem => item.Postcode)</td>
+            <td>@Html.DisplayFor(modelItem => item.Postcode)</td>*@
             <td>@Html.DisplayFor(modelItem => item.Class)</td>
             <td>@Html.DisplayFor(modelItem => item.Price)</td>
             <td>@Html.DisplayFor(modelItem => item.Seat)</td>
