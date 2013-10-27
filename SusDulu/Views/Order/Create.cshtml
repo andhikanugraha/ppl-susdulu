@@ -1,10 +1,10 @@
 ﻿@model SusDulu.Models.Ticket
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Pemesanan Tiket";
 }
 
-<h2>Order</h2>
+<h2>Masukkan data Anda</h2>
 
 <label style="color:red">@TempData["errSeat"]</label>
 
@@ -13,10 +13,10 @@
 
     for(var j = 0; j < ViewBag.Sum; j++)
     {
-        <fieldset>
-            <legend>Ticket - @(j+1)</legend>
+        <fieldset style="float:left;margin-right:200px">
+            <legend>Tiket - @(j+1)</legend>
 
-            <div class="editor-label">
+            @*<div class="editor-label">
                 @Html.LabelFor(model => model.Email)
             </div>
             <div class="editor-field">
@@ -179,7 +179,161 @@
 
                 @Html.DropDownList("seat",seatList)
                 @Html.ValidationMessageFor(model => model.Seat)
-            </div>
+            </div>*@
+            <table>
+	            <tr>
+		            <td class="editor-label"><label for="Email">E-mail</label></td>
+		            <td class="editor-field">
+			            @Html.EditorFor(model => model.Email)
+                        @Html.ValidationMessageFor(model => model.Email)
+		            </td>
+	            </tr>
+	            <tr>
+		            <td class="editor-label"><label for="First_name">Nama depan</label></td>
+		            <td class="editor-field">
+			            @Html.EditorFor(model => model.First_name)
+                        @Html.ValidationMessageFor(model => model.First_name)
+		            </td>
+	            </tr>
+	            <tr>
+		            <td class="editor-label"><label for="Middle_name">Nama tengah</label></td>
+		            <td class="editor-field">
+			            @Html.EditorFor(model => model.Middle_name)
+                        @Html.ValidationMessageFor(model => model.Middle_name)
+		            </td>
+	            </tr>
+	            <tr>
+		            <td class="editor-label"><label for="Last_name">Nama belakang</label></td>
+		            <td class="editor-field">
+			            @Html.EditorFor(model => model.Last_name)
+                        @Html.ValidationMessageFor(model => model.Last_name)
+		            </td>
+	            </tr>
+	            <tr>
+		            <td class="editor-label"><label for="Address">Alamat</label></td>
+		            <td class="editor-field">
+			            @Html.EditorFor(model => model.Address)
+                        @Html.ValidationMessageFor(model => model.Address)
+		            </td>
+	            </tr>
+	            <tr>
+		            <td class="editor-label"><label for="Phone">Nomor telepon</label></td>
+		            <td class="editor-field">
+			            @Html.EditorFor(model => model.Phone)
+                        @Html.ValidationMessageFor(model => model.Phone)
+		            </td>
+	            </tr>
+	            <tr>
+		            <td class="editor-label"><label for="Gender">Jenis kelamin</label></td>
+		            <td class="editor-field">
+			            @{
+				            List<SelectListItem> genderList = new List<SelectListItem>();
+				            genderList.Add(new SelectListItem{
+					            Text = "Laki-laki",
+					            Value = "MALE",
+					            Selected = true
+				            });
+				            genderList.Add(new SelectListItem{
+					            Text = "Perempuan",
+					            Value = "FEMALE",
+					            Selected = false
+				            });
+			            }
+
+			            @Html.DropDownList("gender",genderList)
+			            @Html.ValidationMessageFor(model => model.Gender)
+		            </td>
+	            </tr>
+	            <tr>
+		            <td class="editor-label"><label for="City">Kota</label></td>
+		            <td class="editor-field">
+			            @Html.EditorFor(model => model.City)
+                        @Html.ValidationMessageFor(model => model.City)
+		            </td>
+	            </tr>
+	            <tr>
+		            <td class="editor-label"><label for="Province">Provinsi</label></td>
+		            <td class="editor-field">
+			            @Html.EditorFor(model => model.Province)
+                        @Html.ValidationMessageFor(model => model.Province)
+		            </td>
+	            </tr>
+	            <tr>
+		            <td class="editor-label"><label for="Postcode">Kode pos</label></td>
+		            <td class="editor-field">
+			            @Html.EditorFor(model => model.Postcode)
+                        @Html.ValidationMessageFor(model => model.Postcode)
+		            </td>
+	            </tr>
+	            <tr>
+		            <td class="editor-label"><label for="Class">Kelas</label></td>
+		            <td class="editor-field">
+			            @{
+				            List<SelectListItem> classList = new List<SelectListItem>();
+				            classList.Add(new SelectListItem{
+					            Text = "Kelas Satu",
+					            Value = "FIRSTCLASS",
+					            Selected = true
+				            });
+				            classList.Add(new SelectListItem{
+					            Text = "Bisnis",
+					            Value = "BUSINESS",
+					            Selected = false
+				            });
+				            classList.Add(new SelectListItem
+				            {
+					            Text = "Economi",
+					            Value = "ECONOMY",
+					            Selected = false
+				            });
+			            }
+			            @Html.DropDownList("class",classList)
+			            @Html.ValidationMessageFor(model => model.Class)
+		            </td>
+	            </tr>
+	            <tr style="display:none">
+		            <td class="editor-label"><label for="Price">Harga</label></td>
+		            <td class="editor-field">
+			            @{
+				            string prc = "1000000";
+			            }
+			            @Html.Raw("Rp. "+prc+",00")
+			            @Html.Hidden("Price",prc)
+		            </td>
+	            </tr>
+	            <tr>
+		            <td class="editor-label"><label for="Seat">Tempat duduk</label></td>
+		            <td class="editor-field">
+			            @{
+				            List<SelectListItem> seatList = new List<SelectListItem>();
+				            string col = ViewBag.seatCol;
+				            for (int i = 0; i < ViewBag.seatRow; i++)
+				            {
+					            foreach (char c in col)
+					            {
+						            string labelSeat = (i + 1).ToString() + c;
+
+						            //ambil data occupied seat dari controller
+						            List<string> occSeat = (List<string>)ViewBag.occSeat;
+						            if (!occSeat.Contains(labelSeat))
+						            {
+							            //jika seat blm dipesan
+							            seatList.Add(new SelectListItem
+							            {
+								            Text = labelSeat,
+								            Value = labelSeat,
+								            Selected = false
+							            });
+						            }
+					            }
+				            }
+			            }
+
+			            @Html.DropDownList("seat",seatList)
+			            @Html.ValidationMessageFor(model => model.Seat)
+		            </td>
+	            </tr>
+            </table>
 
             <p>
                 <input name="id_flight1" type="hidden" value="@ViewBag.IDFlight1" />
@@ -190,13 +344,18 @@
             </p>
         </fieldset>
     }
-    <input type="submit" value="Order" />
+    <br style="clear:both"/>
+    @*<p style="clear:both"></p>*@
+    @*<input type="submit" value="Order" />*@
+    <div class="form-group pull-right" style="float:left!important">
+        <button class="btn btn-danger btn-lg">Pesan<i class="glyphicon glyphicon-arrow-right"></i></button>
+    </div>
     
 }
 
-<div>
+@*<div>
     @Html.ActionLink("Back to List", "Index")
-</div>
+</div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

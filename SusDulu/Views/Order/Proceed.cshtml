@@ -1,27 +1,27 @@
 ﻿@{
-    ViewBag.Title = "Proceed";
+    ViewBag.Title = "Pembayaran Tiket";
 }
 
-<h2>Proceed</h2>
+<h2>Pembayaran tiket</h2>
 
 @using (Html.BeginForm("Index", "Payment", FormMethod.Post))
 {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Payment Data</legend>
+        <legend>Data Pembayar</legend>
 
         @if (!Request.IsAuthenticated)
         {
             <div class="editor-label">
-                <label>Email: </label>
+                <label>E-mail: </label>
             </div>
             <div class="editor-field">
                 <input type="text" name="email" />            
             </div>
 
             <div class="editor-label">
-                <label>Name: </label>
+                <label>Nama: </label>
             </div>
             <div class="editor-field">
                 <input type="text" name="name" />
@@ -29,12 +29,16 @@
         }
 
         <div class="editor-label">
-            <label>Credit Card Number: </label>
+            <label>Nomor kartu kredit: </label>
         </div>
         <div class="editor-field">
             <input type="text" name="ccnumber" />
         </div>
-
-        <input type="submit" value="Purchase" />
+        <br />
+        <br />
+        @*<input type="submit" value="Purchase" />*@
+        <div class="form-group pull-right" style="float:left!important">
+            <button class="btn btn-danger btn-lg">Bayar<i class="glyphicon glyphicon-arrow-right"></i></button>
+        </div>
     </fieldset>
 }

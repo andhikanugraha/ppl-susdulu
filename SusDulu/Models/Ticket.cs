@@ -20,22 +20,22 @@ namespace SusDulu.Models
         [EmailAddress(ErrorMessage="E-mail is not valid")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage="First name is required")]
+        [Required(ErrorMessage="Nama depan harus diisi")]
         public string First_name { get; set; }
         public string Middle_name { get; set; }
         public string Last_name { get; set; }
 
-        [Required(ErrorMessage="Address is required")]
+        [Required(ErrorMessage="Alamat harus diisi")]
         public string Address { get; set; }
-        [Required(ErrorMessage = "Phone is required")]
+        [Required(ErrorMessage = "Nomor telepon harus diisi")]
         public string Phone { get; set; }
         [Required]
         public string Gender { get; set; }
-        [Required(ErrorMessage = "City is required")]
+        [Required(ErrorMessage = "Kota harus diisi")]
         public string City { get; set; }
-        [Required(ErrorMessage = "Province is required")]
+        [Required(ErrorMessage = "Provinsi harus diisi")]
         public string Province { get; set; }
-        [Required(ErrorMessage = "Postcode is required")]
+        [Required(ErrorMessage = "Kode pos harus diisi")]
         public string Postcode { get; set; }
         [Required]
         public string Class { get; set; }

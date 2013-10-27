@@ -105,7 +105,7 @@ namespace SusDulu.Controllers
             //Duplication Check
             if (HasDuplicates(seatL))
             {
-                TempData["errSeat"] = "You must choose different seat";
+                TempData["errSeat"] = "Anda harus memilih tempat duduk yang berbeda";
                 return RedirectToAction("create", new FlightOption { id_flight1 = id_flight1, id_flight2 = id_flight2, Sum = Sum });
             }
 

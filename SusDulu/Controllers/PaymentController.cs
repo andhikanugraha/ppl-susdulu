@@ -42,7 +42,15 @@ namespace SusDulu.Controllers
             var tickIDQry = from t in db.Tickets
                             select t.ID;
             tickIDList.AddRange(tickIDQry.Distinct());
-            int lastElmt = tickIDList.Last();
+            int lastElmt;
+            try
+            {
+                lastElmt = tickIDList.Last();
+            }
+            catch (InvalidOperationException e)
+            {
+                lastElmt = 0;
+            }
             int newID = lastElmt + 1;
 
             int? IDUser = WebSecurity.CurrentUserId;
