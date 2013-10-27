@@ -8,12 +8,13 @@ using System.Web;
 
 namespace SusDulu.Models
 {
-    [Table("ticket")]
+    [Table("penumpang")]
     public class Ticket
     {
-        [Key]
+        [Key, Column("kodepenumpang")]
         public int ID { get; set; }
         public int? ID_user { get; set; }
+        [Column("kodepenerbangan")]
         public int ID_flight { get; set; }
 
         [Required(ErrorMessage="Email is required")]

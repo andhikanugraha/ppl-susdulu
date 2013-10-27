@@ -8,11 +8,12 @@ using System.Web;
 
 namespace SusDulu.Models
 {
-    [Table("airport")]
+    [Table("bandara")]
     public class Airport
     {
-        [Key]
+        [Key, Column("kodebandara")]
         public string ID { get; set; }
+        [Column("namabandara")]
         public string Name { get; set; }
     }
 }

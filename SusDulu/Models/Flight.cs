@@ -8,11 +8,12 @@ using System.Web;
 
 namespace SusDulu.Models
 {
-    [Table("flight")]
+    [Table("penerbangan")]
     public class Flight
     {
-        [Key]
+        [Key, Column("kodepenerbangan")]
         public int ID { get; set; }
+        [Column("kodepesawat")]
         public int ID_plane { get; set; }
         public string Flight_number { get; set; }
         //[DataType(DataType.Date)]
@@ -23,11 +24,15 @@ namespace SusDulu.Models
         //public DateTime Arrival_date { get; set; }
         //[DataType(DataType.Time)]
         //public DateTime Arrival_time { get; set; }
+        [Column("tanggalpenerbangan")]
         public string Departure_date { get; set; }
+        [Column("waktupenerbangan")]
         public string Departure_time { get; set; }
         public string Arrival_date { get; set; }
         public string Arrival_time { get; set; }
+        [Column("kotaasalbandara")]
         public string Origin { get; set; }
+        [Column("kotatujuanbandara")]
         public string Destination { get; set; }
         public int Distance { get; set; }
     }

@@ -8,10 +8,10 @@ using System.Web;
 
 namespace SusDulu.Models
 {
-    [Table("plane")]
+    [Table("pesawat")]
     public class Plane
     {
-        [Key]
+        [Key, Column("kodepesawat")]
         public int ID { get; set; }
         public string Manufacturer { get; set; }
         public string Model { get; set; }
