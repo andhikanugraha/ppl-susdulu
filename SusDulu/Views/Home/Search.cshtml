@@ -2,10 +2,11 @@
     ViewBag.Title = "Cari Penerbangan";
 }
 @model SusDulu.Models.OptionsModel
-<h3>Pilih Penerbangan Anda</h3>
+<h3>Pilih Penerbangan Anda</h3><br />
 @using(Html.BeginForm("Create", "Order", FormMethod.Post))
 {
     @*@Html.AntiForgeryToken()*@
+    <h4>Tiket keberangkatan</h4>
     <table class="table">
         <tr>
             <th></th>
@@ -29,7 +30,8 @@
     }
     if (Model.TripType.Equals("round-trip"))
     {
-            <table class="table">
+        <h4>Tiket kepulangan</h4>
+        <table class="table">
             <tr>
                 <th></th>
                 <th>Nomor penerbangan</th>

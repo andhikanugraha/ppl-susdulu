@@ -1,16 +1,19 @@
 ﻿@{
-    ViewBag.Title = "Payment";
+    ViewBag.Title = "Pencetakan Tiket";
 }
 
+<h3>Cetak Tiket Anda</h3>
 @using (Html.BeginForm("Index", "Home", FormMethod.Post))
 {
     @Html.ValidationSummary(true)
     
     int IDFirst = ViewBag.firstID;
     int IDLast = IDFirst - 1 + ViewBag.sum;
-    for (int i = IDFirst; i <= IDLast; i++)
+    for (int i = IDFirst, j = 1; i <= IDLast; i++, j++)
     {
-        @Html.ActionLink("Cetak", "Print", "Account", new { idTiket = i }, new { idTiket = i })
+        <h4>
+        @Html.ActionLink("Tiket " + j, "Print", "Account", new { idTiket = i }, new { idTiket = i })
+        </h4>
     }
 
 }
