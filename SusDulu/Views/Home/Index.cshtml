@@ -16,6 +16,10 @@
             {
                 <p>Data yang anda masukkan belum lengkap</p>
             }
+            else if (ViewBag.Message.Equals("input_error"))
+            {
+                <p>Data yang anda masukkan salah</p> 
+            }
         }
         @using (Html.BeginForm("Search", "Home", FormMethod.Post))
         {

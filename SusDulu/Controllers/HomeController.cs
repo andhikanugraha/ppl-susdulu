@@ -29,6 +29,10 @@ namespace SusDulu.Controllers
             {
                 return RedirectToAction("Index", new {message = "search_error"});
             }
+            if (model.Sum < 1)
+            {
+                return RedirectToAction("Index", new {message = "input_error"});
+            }
             model.Departure_date1.Replace("/", "-");
             var flightList1 = new List<Flight>();
             var flightQuery = from flight in db.Flights
