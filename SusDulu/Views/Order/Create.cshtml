@@ -4,359 +4,214 @@
     ViewBag.Title = "Pemesanan Tiket";
 }
 
-<h2>Masukkan data Anda</h2>
+<h1 class="page-header">Data Penumpang</h1>
 
-<label style="color:red">@TempData["errSeat"]</label>
+@using (Html.BeginForm("Proceed", "Order", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+<div class="row">
+    <div class="col-md-4">
+        <p class="lead">Isilah data penumpang untuk tiket yang Anda pesan pada formulir di sebelah kanan.</p>
+        <button class="btn btn-danger btn-lg">Pesan <i class="glyphicon glyphicon-arrow-right"></i></button>
+    </div>
+    <div class="col-md-8 ticket-details-all">
+        <ul class="nav nav-tabs" id="ticket-tabs">
+        @for (var j = 0; j < ViewBag.Sum; j++)
+        {
+            <li><a href="#ticket@(j + 1)">Penumpang @(j + 1)</a></li>
+        }
+        </ul>
 
-@using (Html.BeginForm("Proceed","Order",FormMethod.Post)) {
-    @Html.ValidationSummary(true)
+        @if (TempData["errSeat"] != null)
+        { <div class="alert alert-danger">@TempData["errSeat"]</div> }
+        @Html.ValidationSummary(true)
 
-    for(var j = 0; j < ViewBag.Sum; j++)
-    {
-        <fieldset style="float:left;margin-right:200px">
-            <legend>Tiket - @(j+1)</legend>
+        <div class="tab-content">
+        @for (var j = 0; j < ViewBag.Sum; j++)
+        {
+            <div id="ticket@(j + 1)" class="tab-pane ticket-details fade">
+                @*<h3>Penumpang @(j + 1)</h3>*@
 
-            @*<div class="editor-label">
-                @Html.LabelFor(model => model.Email)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Email)
-                @Html.ValidationMessageFor(model => model.Email)
-            </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="First_name">Nama</label>
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => model.First_name, new { @class = "form-control", placeholder = "Nama depan" })
+                        @Html.ValidationMessageFor(model => model.First_name)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => model.Middle_name, new { @class = "form-control", placeholder = "Nama tengah" })
+                        @Html.ValidationMessageFor(model => model.Middle_name)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => model.Last_name, new { @class = "form-control", placeholder = "Nama belakang" })
+                        @Html.ValidationMessageFor(model => model.Last_name)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="Email">Alamat surel</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Alamat surel" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="Address">Alamat</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = "Jalan" })
+                        @Html.ValidationMessageFor(model => model.Address)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="City">@*Kota*@</label>
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => model.City, new { @class = "form-control", placeholder = "Kota" })
+                        @Html.ValidationMessageFor(model => model.City)
+                    </div>
+                @*</div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="Province">Provinsi</label>*@
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => model.Province, new { @class = "form-control", placeholder = "Provinsi" })
+                        @Html.ValidationMessageFor(model => model.Province)
+                    </div>
+                @*</div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="Postcode">Kode pos</label>*@
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => model.Postcode, new { @class = "form-control", placeholder = "Kode pos" })
+                        @Html.ValidationMessageFor(model => model.Postcode)
+                    </div>
+                </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.First_name)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.First_name)
-                @Html.ValidationMessageFor(model => model.First_name)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Middle_name)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Middle_name)
-                @Html.ValidationMessageFor(model => model.Middle_name)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Last_name)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Last_name)
-                @Html.ValidationMessageFor(model => model.Last_name)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Address)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Address)
-                @Html.ValidationMessageFor(model => model.Address)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Phone)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Phone)
-                @Html.ValidationMessageFor(model => model.Phone)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Gender)
-            </div>
-            <div class="editor-field">
-                @{
-                    List<SelectListItem> genderList = new List<SelectListItem>();
-                    genderList.Add(new SelectListItem{
-                        Text = "Male",
-                        Value = "MALE",
-                        Selected = true
-                    });
-                    genderList.Add(new SelectListItem{
-                        Text = "Female",
-                        Value = "FEMALE",
-                        Selected = false
-                    });
-                }
-
-                @Html.DropDownList("gender",genderList)
-                @Html.ValidationMessageFor(model => model.Gender)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.City)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.City)
-                @Html.ValidationMessageFor(model => model.City)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Province)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Province)
-                @Html.ValidationMessageFor(model => model.Province)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Postcode)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Postcode)
-                @Html.ValidationMessageFor(model => model.Postcode)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Class)
-            </div>
-            <div class="editor-field">
-                @{
-                    List<SelectListItem> classList = new List<SelectListItem>();
-                    classList.Add(new SelectListItem{
-                        Text = "First Class",
-                        Value = "FIRSTCLASS",
-                        Selected = true
-                    });
-                    classList.Add(new SelectListItem{
-                        Text = "Business",
-                        Value = "BUSINESS",
-                        Selected = false
-                    });
-                    classList.Add(new SelectListItem
-                    {
-                        Text = "Economy",
-                        Value = "ECONOMY",
-                        Selected = false
-                    });
-                }
-                @Html.DropDownList("class",classList)
-                @Html.ValidationMessageFor(model => model.Class)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Price)
-            </div>
-            <div class="editor-field">
-                @{
-                    string prc = "1000000";
-                }
-                @Html.Raw("Rp. "+prc+",00")
-                @Html.Hidden("Price",prc)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Seat)
-            </div>
-            <div class="editor-field">
-                @{
-                    List<SelectListItem> seatList = new List<SelectListItem>();
-                    string col = ViewBag.seatCol;
-                    for (int i = 0; i < ViewBag.seatRow; i++)
-                    {
-                        foreach (char c in col)
-                        {
-                            string labelSeat = (i + 1).ToString() + c;
-
-                            //ambil data occupied seat dari controller
-                            List<string> occSeat = (List<string>)ViewBag.occSeat;
-                            if (!occSeat.Contains(labelSeat))
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="Phone">Nomor telepon</label>
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "Nomor telepon" })
+                        @Html.ValidationMessageFor(model => model.Phone)
+                    </div>
+                @*</div>
+                <div class="form-group">*@
+                    <label class="control-label col-md-3" for="Gender">Jenis kelamin</label>
+                    <div class="col-md-3">
+                        @{
+                            List<SelectListItem> genderList = new List<SelectListItem>();
+                            genderList.Add(new SelectListItem
                             {
-                                //jika seat blm dipesan
-                                seatList.Add(new SelectListItem
+                                Text = "Laki-laki",
+                                Value = "MALE",
+                                Selected = true
+                            });
+                            genderList.Add(new SelectListItem
+                            {
+                                Text = "Perempuan",
+                                Value = "FEMALE",
+                                Selected = false
+                            });
+                        }
+
+                        @Html.DropDownList("gender", genderList, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Gender)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="Class">Kelas</label>
+                    <div class="col-md-3">
+                        @{
+                            List<SelectListItem> classList = new List<SelectListItem>();
+                            classList.Add(new SelectListItem
+                            {
+                                Text = "Eksekutif",
+                                Value = "FIRSTCLASS",
+                                Selected = true
+                            });
+                            classList.Add(new SelectListItem
+                            {
+                                Text = "Bisnis",
+                                Value = "BUSINESS",
+                                Selected = false
+                            });
+                            classList.Add(new SelectListItem
+                            {
+                                Text = "Ekonomi",
+                                Value = "ECONOMY",
+                                Selected = false
+                            });
+                        }
+                        @Html.DropDownList("class", classList, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Class)
+                    </div>
+                @*</div>
+                <tr style="display:none">
+                        <label class="control-label col-md-3" for="Price">Harga</label>
+                        <div class="col-md-6">
+                            @{
+                                string prc = "1000000";
+                            }
+                            @Html.Raw("Rp. "+prc+",00")
+                            @Html.Hidden("Price",prc)
+                        </div>
+                </div>
+                <div class="form-group">*@
+                    <label class="control-label col-md-3" for="Seat">Tempat duduk</label>
+                    <div class="col-md-3">
+                        @{
+                            List<SelectListItem> seatList = new List<SelectListItem>();
+                            string col = ViewBag.seatCol;
+                            for (int i = 0; i < ViewBag.seatRow; i++)
+                            {
+                                foreach (char c in col)
                                 {
-                                    Text = labelSeat,
-                                    Value = labelSeat,
-                                    Selected = false
-                                });
+                                    string labelSeat = (i + 1).ToString() + c;
+
+                                    //ambil data occupied seat dari controller
+                                    List<string> occSeat = (List<string>)ViewBag.occSeat;
+                                    if (!occSeat.Contains(labelSeat))
+                                    {
+                                        //jika seat blm dipesan
+                                        seatList.Add(new SelectListItem
+                                        {
+                                            Text = labelSeat,
+                                            Value = labelSeat,
+                                            Selected = false
+                                        });
+                                    }
+                                }
                             }
                         }
-                    }
-                }
 
-                @Html.DropDownList("seat",seatList)
-                @Html.ValidationMessageFor(model => model.Seat)
-            </div>*@
-            <table>
-	            <tr>
-		            <td class="editor-label"><label for="Email">Alamat surel</label></td>
-		            <td class="editor-field">
-			            @Html.EditorFor(model => model.Email)
-                        @Html.ValidationMessageFor(model => model.Email)
-		            </td>
-	            </tr>
-	            <tr>
-		            <td class="editor-label"><label for="First_name">Nama depan</label></td>
-		            <td class="editor-field">
-			            @Html.EditorFor(model => model.First_name)
-                        @Html.ValidationMessageFor(model => model.First_name)
-		            </td>
-	            </tr>
-	            <tr>
-		            <td class="editor-label"><label for="Middle_name">Nama tengah</label></td>
-		            <td class="editor-field">
-			            @Html.EditorFor(model => model.Middle_name)
-                        @Html.ValidationMessageFor(model => model.Middle_name)
-		            </td>
-	            </tr>
-	            <tr>
-		            <td class="editor-label"><label for="Last_name">Nama belakang</label></td>
-		            <td class="editor-field">
-			            @Html.EditorFor(model => model.Last_name)
-                        @Html.ValidationMessageFor(model => model.Last_name)
-		            </td>
-	            </tr>
-	            <tr>
-		            <td class="editor-label"><label for="Address">Alamat</label></td>
-		            <td class="editor-field">
-			            @Html.EditorFor(model => model.Address)
-                        @Html.ValidationMessageFor(model => model.Address)
-		            </td>
-	            </tr>
-	            <tr>
-		            <td class="editor-label"><label for="Phone">Nomor telepon</label></td>
-		            <td class="editor-field">
-			            @Html.EditorFor(model => model.Phone)
-                        @Html.ValidationMessageFor(model => model.Phone)
-		            </td>
-	            </tr>
-	            <tr>
-		            <td class="editor-label"><label for="Gender">Jenis kelamin</label></td>
-		            <td class="editor-field">
-			            @{
-				            List<SelectListItem> genderList = new List<SelectListItem>();
-				            genderList.Add(new SelectListItem{
-					            Text = "Laki-laki",
-					            Value = "MALE",
-					            Selected = true
-				            });
-				            genderList.Add(new SelectListItem{
-					            Text = "Perempuan",
-					            Value = "FEMALE",
-					            Selected = false
-				            });
-			            }
+                        @Html.DropDownList("seat", seatList, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Seat)
+                    </div>
+                </div>
 
-			            @Html.DropDownList("gender",genderList)
-			            @Html.ValidationMessageFor(model => model.Gender)
-		            </td>
-	            </tr>
-	            <tr>
-		            <td class="editor-label"><label for="City">Kota</label></td>
-		            <td class="editor-field">
-			            @Html.EditorFor(model => model.City)
-                        @Html.ValidationMessageFor(model => model.City)
-		            </td>
-	            </tr>
-	            <tr>
-		            <td class="editor-label"><label for="Province">Provinsi</label></td>
-		            <td class="editor-field">
-			            @Html.EditorFor(model => model.Province)
-                        @Html.ValidationMessageFor(model => model.Province)
-		            </td>
-	            </tr>
-	            <tr>
-		            <td class="editor-label"><label for="Postcode">Kode pos</label></td>
-		            <td class="editor-field">
-			            @Html.EditorFor(model => model.Postcode)
-                        @Html.ValidationMessageFor(model => model.Postcode)
-		            </td>
-	            </tr>
-	            <tr>
-		            <td class="editor-label"><label for="Class">Kelas</label></td>
-		            <td class="editor-field">
-			            @{
-				            List<SelectListItem> classList = new List<SelectListItem>();
-				            classList.Add(new SelectListItem{
-					            Text = "Kelas Satu",
-					            Value = "FIRSTCLASS",
-					            Selected = true
-				            });
-				            classList.Add(new SelectListItem{
-					            Text = "Bisnis",
-					            Value = "BUSINESS",
-					            Selected = false
-				            });
-				            classList.Add(new SelectListItem
-				            {
-					            Text = "Economi",
-					            Value = "ECONOMY",
-					            Selected = false
-				            });
-			            }
-			            @Html.DropDownList("class",classList)
-			            @Html.ValidationMessageFor(model => model.Class)
-		            </td>
-	            </tr>
-	            <tr style="display:none">
-		            <td class="editor-label"><label for="Price">Harga</label></td>
-		            <td class="editor-field">
-			            @{
-				            string prc = "1000000";
-			            }
-			            @Html.Raw("Rp. "+prc+",00")
-			            @Html.Hidden("Price",prc)
-		            </td>
-	            </tr>
-	            <tr>
-		            <td class="editor-label"><label for="Seat">Tempat duduk</label></td>
-		            <td class="editor-field">
-			            @{
-				            List<SelectListItem> seatList = new List<SelectListItem>();
-				            string col = ViewBag.seatCol;
-				            for (int i = 0; i < ViewBag.seatRow; i++)
-				            {
-					            foreach (char c in col)
-					            {
-						            string labelSeat = (i + 1).ToString() + c;
-
-						            //ambil data occupied seat dari controller
-						            List<string> occSeat = (List<string>)ViewBag.occSeat;
-						            if (!occSeat.Contains(labelSeat))
-						            {
-							            //jika seat blm dipesan
-							            seatList.Add(new SelectListItem
-							            {
-								            Text = labelSeat,
-								            Value = labelSeat,
-								            Selected = false
-							            });
-						            }
-					            }
-				            }
-			            }
-
-			            @Html.DropDownList("seat",seatList)
-			            @Html.ValidationMessageFor(model => model.Seat)
-		            </td>
-	            </tr>
-            </table>
-
-            <p>
-                <input name="id_flight1" type="hidden" value="@ViewBag.IDFlight1" />
-                <input name="id_flight2" type="hidden" value="@ViewBag.IDFlight2" />
-                <input name="Sum" type="hidden" value="@ViewBag.Sum" />
-                @*<input type="submit" value="Order" />*@
-                <br />
-            </p>
-        </fieldset>
-    }
-    <br style="clear:both"/>
-    @*<p style="clear:both"></p>*@
-    @*<input type="submit" value="Order" />*@
-    <div class="form-group pull-right" style="float:left!important">
-        <button class="btn btn-danger btn-lg">Pesan<i class="glyphicon glyphicon-arrow-right"></i></button>
+                <p>
+                    <input name="id_flight1" type="hidden" value="@ViewBag.IDFlight1" />
+                    <input name="id_flight2" type="hidden" value="@ViewBag.IDFlight2" />
+                    <input name="Sum" type="hidden" value="@ViewBag.Sum" />
+                    @*<input type="submit" value="Order" />*@
+                    <br />
+                </p>
+            </div>
+        }
+        </div>
     </div>
-    
+</div>
 }
-
 @*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(function () {
+        // $('.tab-pane').hide();
+        $('.tab-pane:first').addClass('in');
+        $('#ticket-tabs li a:first').tab('show');
+        $('#ticket-tabs li a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+            this.blur();
+        });
+    })
+</script>
 }

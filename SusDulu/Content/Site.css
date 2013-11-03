@@ -16,14 +16,12 @@ input, textarea, select, button {
 div.container {
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4, h5, h6 {
     font-family: 'Segoe UI Light', 'Segoe UI';
     font-weight: 300;
 }
 
 h1.page-header {
-	font-family: 'Segoe UI Light';
-	font-weight: normal;
 	margin-top: 40px;
 	margin-bottom: 30px;
 	color: #be1e2d;
@@ -106,4 +104,11 @@ h1.page-header {
 }
 .site-header .member-area .current-user-actions {
     float: left;
+}
+
+.ticket-details {
+    padding-top: 20px;
+}
+.ticket-details-all {
+    margin-top: -62px;
 }
