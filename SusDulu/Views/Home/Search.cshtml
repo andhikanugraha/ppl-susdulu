@@ -2,35 +2,48 @@
     ViewBag.Title = "Cari Penerbangan";
 }
 @model SusDulu.Models.OptionsModel
-<h3>Pilih Penerbangan Anda</h3><br />
+<h1 class="page-header">Pilih Penerbangan Anda</h1>
 @using(Html.BeginForm("Create", "Order", FormMethod.Post))
 {
+<div class="row">
+    @if (Model.TripType.Equals("round-trip"))
+    {
     @*@Html.AntiForgeryToken()*@
-    <h4>Tiket keberangkatan</h4>
-    <table class="table">
-        <tr>
-            <th></th>
-            <th>Nomor penerbangan</th>
-            <th>Waktu keberangkatan</th>
-            <th>Waktu tiba</th>
-        </tr>
-        @foreach (var item in Model.Flights1)
+    <div class="col-md-6">
+        <h2 class="flightChoiceHeader">Keberangkatan</h2>
+        @if (Model.Flights1.Count == 0)
         {
-             <tr>
-                 <td><input type="radio" name="id_flight1" value="@Html.DisplayFor(modelItem => item.ID)"></td>
-                 <td>@Html.DisplayFor(modelItem => item.Flight_number)</td>
-                 <td>@Html.DisplayFor(modelItem => item.Departure_time)</td>
-                 <td>@Html.DisplayFor(modelItem => item.Arrival_time)</td>
-             </tr>
+        <p class="none">Tidak ada penerbangan yang tersedia.</p>
         }
-    </table>
-    if (Model.Flights1.Count == 0)
-    {
-        <p>Tidak ada hasil yang ditemukan</p>
-    }
-    if (Model.TripType.Equals("round-trip"))
-    {
-        <h4>Tiket kepulangan</h4>
+        else
+        {
+        <table class="table">
+            <tr>
+                <th></th>
+                <th>Nomor penerbangan</th>
+                <th>Waktu keberangkatan</th>
+                <th>Waktu tiba</th>
+            </tr>
+            @foreach (var item in Model.Flights1)
+            {
+            <tr class="flight">
+                <td><input type="radio" name="id_flight1" value="@Html.DisplayFor(modelItem => item.ID)"></td>
+                <td>@Html.DisplayFor(modelItem => item.Flight_number)</td>
+                <td>@Html.DisplayFor(modelItem => item.Departure_time)</td>
+                <td>@Html.DisplayFor(modelItem => item.Arrival_time)</td>
+            </tr>
+            }
+        </table>
+        }
+    </div>
+    <div class="col-md-6">
+        <h2 class="flightChoiceHeader">Kepulangan</h2>
+        @if (Model.Flights2.Count == 0)
+        {
+        <p class="none">Tidak ada penerbangan yang tersedia.</p>
+        }
+        else
+        {
         <table class="table">
             <tr>
                 <th></th>
@@ -40,21 +53,61 @@
             </tr>
             @foreach (var item in Model.Flights2)
             {
-                 <tr>
-                     <td><input type="radio" name="id_flight2" value="@Html.DisplayFor(modelItem => item.ID)"></td>
-                     <td>@Html.DisplayFor(modelItem => item.Flight_number)</td>
-                     <td>@Html.DisplayFor(modelItem => item.Departure_time)</td>
-                     <td>@Html.DisplayFor(modelItem => item.Arrival_time)</td>
-                 </tr>
+            <tr class="flight">
+                <td><input type="radio" name="id_flight2" value="@Html.DisplayFor(modelItem => item.ID)"></td>
+                <td>@Html.DisplayFor(modelItem => item.Flight_number)</td>
+                <td>@Html.DisplayFor(modelItem => item.Departure_time)</td>
+                <td>@Html.DisplayFor(modelItem => item.Arrival_time)</td>
+            </tr>
             }
         </table>
-        if (Model.Flights2.Count == 0)
-        {
-            <p>Tidak ada hasil yang ditemukan</p>
-    }
-    }
-    <input type="hidden" name="Sum" value="@Html.DisplayFor(sum => Model.Sum)">
-    <div class="form-group pull-right">
-        <button class="btn btn-danger btn-lg">Lanjut <i class="glyphicon glyphicon-arrow-right"></i></button>
+        }
     </div>
+}
+else {
+    <div class="col-md-12">
+        <h2 class="flightChoiceHeader">Keberangkatan (satu arah)</h2>
+
+        @if (Model.Flights1.Count == 0)
+        {
+        <p class="none">Tidak ada penerbangan yang tersedia.</p>
+        }
+        else
+        {
+        <table class="table">
+            <tr>
+                <th></th>
+                <th>Nomor penerbangan</th>
+                <th>Waktu keberangkatan</th>
+                <th>Waktu tiba</th>
+            </tr>
+            @foreach (var item in Model.Flights1)
+            {
+            <tr class="flight">
+                <td><input type="radio" name="id_flight1" value="@Html.DisplayFor(modelItem => item.ID)"></td>
+                <td>@Html.DisplayFor(modelItem => item.Flight_number)</td>
+                <td>@Html.DisplayFor(modelItem => item.Departure_time)</td>
+                <td>@Html.DisplayFor(modelItem => item.Arrival_time)</td>
+            </tr>
+            }
+        </table>
+        }
+    </div>
+}
+</div>
+
+<div>
+    <input type="hidden" name="Sum" value="@Html.DisplayFor(sum => Model.Sum)">
+    <button class="btn btn-danger btn-lg">Lanjut <i class="glyphicon glyphicon-arrow-right"></i></button>
+</div>
+}
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('.flight').click(function (e) {
+                $('input[type=radio]', this).prop('checked', true);
+            });
+        })
+    </script>
 }

@@ -112,3 +112,18 @@ h1.page-header {
 .ticket-details-all {
     margin-top: -62px;
 }
+
+.flight {
+    cursor: pointer;
+}
+.flight:hover td {
+    background: #f6f6f6;
+}
+
+.none {
+    color: #999;
+    font-style: italic;
+}
+.flightChoiceHeader {
+    margin-bottom: 20px;
+}
