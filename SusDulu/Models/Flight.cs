@@ -35,6 +35,38 @@ namespace SusDulu.Models
         [Column("kotatujuanbandara")]
         public string Destination { get; set; }
         public int Distance { get; set; }
+
+        public Airport GetOriginAirport()
+        {
+            var db = new DefaultConnection();
+            return db.Airports.Find(Origin);
+        }
+
+        public Airport GetDestinationAirport()
+        {
+            var db = new DefaultConnection();
+            return db.Airports.Find(Destination);
+        }
+
+        private DateTime getDateTime(string dateString, string timeString)
+        {
+            DateTime date = DateTime.Parse(dateString);
+            TimeSpan time = TimeSpan.Parse(timeString);
+
+            date.Add(time);
+
+            return date;
+        }
+
+        public DateTime GetDepartureDateTime()
+        {
+            return getDateTime(Departure_date, Departure_time);
+        }
+
+        public DateTime GetArrivalDateTime()
+        {
+            return getDateTime(Arrival_date, Arrival_time);
+        }
     }
 
     public class SearchModel

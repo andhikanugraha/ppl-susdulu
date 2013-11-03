@@ -85,6 +85,8 @@ namespace SusDulu.Controllers
             List<int> priceL = new List<int>();
             List<string> seatL = new List<string>();
 
+            var passengers = new List<FauxTicket>();
+
             for (int k = 0; k < Email.Length; k++)
             {
                 emailL.Add(Email[k]);
@@ -100,6 +102,22 @@ namespace SusDulu.Controllers
                 classL.Add(Class[k]);
                 priceL.Add(Price[k]);
                 seatL.Add(Seat[k]);
+
+                string fullName = First_name[k];
+                if (Middle_name[k].Length > 0)
+                    fullName += " " + Middle_name[k];
+                if (Last_name[k].Length > 0)
+                    fullName += " " + Last_name[k];
+
+                var passenger = new FauxTicket()
+                {
+                    Name = fullName,
+                    SeatClass = Class[k],
+                    Price = Price[k],
+                    Seat = Seat[k]
+                };
+
+                passengers.Add(passenger);
             }
 
             //Duplication Check
@@ -125,6 +143,23 @@ namespace SusDulu.Controllers
             TempData["idFlight1"] = id_flight1;
             TempData["idFlight2"] = id_flight2;
             TempData["sum"] = Sum;
+
+            ViewBag.flight1 = db.Flights.Find(id_flight1);
+            if (id_flight2 != 0)
+            {
+                ViewBag.isRoundTrip = true;
+                ViewBag.flight2 = db.Flights.Find(id_flight2);
+            }
+            else
+            {
+                ViewBag.isRoundTrip = false;
+            }
+
+            ViewBag.origin = ViewBag.flight1.GetOriginAirport();
+            ViewBag.destination = ViewBag.flight1.GetDestinationAirport();
+
+            ViewBag.Sum = Sum;
+            ViewBag.Passengers = passengers;
 
             return View();
         }

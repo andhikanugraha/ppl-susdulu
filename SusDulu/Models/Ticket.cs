@@ -83,4 +83,12 @@ namespace SusDulu.Models
         public int id_flight2 { get; set; }
         public int Sum { get; set; }
     }
+
+    public class FauxTicket
+    {
+        public string Name;
+        public string SeatClass;
+        public int Price;
+        public string Seat;
+    }
 }

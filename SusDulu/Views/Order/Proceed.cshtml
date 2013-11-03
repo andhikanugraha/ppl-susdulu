@@ -2,8 +2,96 @@
     ViewBag.Title = "Pembayaran Tiket";
 }
 
-<h2>Pembayaran tiket</h2>
+<h1 class="page-header">Konfirmasi pesanan</h1>
 
+<div class="row">
+    <div class="col-md-6">
+        <h3>Penerbangan @(!ViewBag.isRoundTrip ? "Satu Arah" : "Pulang-Pergi")</h3>
+        <h4>Keberangkatan</h4>
+        <table class="table">
+            <tr>
+                <th></th>
+                <th colspan="2">Asal</th>
+                <th colspan="2">Tujuan</th>
+            </tr>
+            <tr>
+                <td><i class="glyphicon glyphicon-plane"></i> @ViewBag.flight1.Flight_number</td>
+                <td>@ViewBag.origin.Name<br />(@ViewBag.origin.ID)</td>
+                <td><i class="glyphicon glyphicon-calendar"></i> @ViewBag.flight1.GetDepartureDateTime().ToShortDateString() <br /> <i class="glyphicon glyphicon-time"></i> @ViewBag.flight1.Departure_time</td>
+                <td>@ViewBag.destination.Name<br />(@ViewBag.destination.ID)</td>
+                <td><i class="glyphicon glyphicon-calendar"></i> @ViewBag.flight1.GetArrivalDateTime().ToShortDateString() <br /> <i class="glyphicon glyphicon-time"></i>  @ViewBag.flight1.Arrival_time</td>
+            </tr>
+        </table>
+
+        @if (ViewBag.isRoundTrip)
+        {
+        <h4>Kepulangan</h4>
+        <table class="table">
+            <tr>
+                <th></th>
+                <th colspan="2">Asal</th>
+                <th colspan="2">Tujuan</th>
+            </tr>
+            <tr>
+                <td><i class="glyphicon glyphicon-plane"></i> @ViewBag.flight2.Flight_number</td>
+                <td>@ViewBag.destination.Name<br />(@ViewBag.destination.ID)</td>
+                <td><i class="glyphicon glyphicon-calendar"></i> @ViewBag.flight1.GetDepartureDateTime().ToShortDateString() <br /> <i class="glyphicon glyphicon-time"></i>  @ViewBag.flight1.Departure_time</td>
+                <td>@ViewBag.origin.Name<br />(@ViewBag.origin.ID)</td>
+                <td><i class="glyphicon glyphicon-calendar"></i> @ViewBag.flight2.GetArrivalDateTime().ToShortDateString() <br /> <i class="glyphicon glyphicon-time"></i> @ViewBag.flight2.Arrival_time</td>
+            </tr>
+        </table>
+        }
+    </div>
+
+    <div class="col-md-6">
+        <h3>@ViewBag.Sum Penumpang</h3>
+        <h4>&nbsp;</h4>
+        <table class="table">
+            <tr>
+                <th>Nama</th>
+                <th>Kelas</th>
+                <th>Nomor kursi</th>
+                <th>Harga</th>
+            </tr>
+            @{
+                int Total = 0;
+            }
+            @foreach (SusDulu.Models.FauxTicket p in ViewBag.Passengers)
+            {
+                Total += p.Price;
+            <tr>
+                <td>@p.Name</td>
+                <td>@(p.SeatClass == "FIRSTCLASS" ? "Eksekutif" : (p.SeatClass == "BUSINESS" ? "Bisnis" : "Ekonomi"))</td>
+                <td>@p.Seat</td>
+                <td>@p.Price.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("id-ID"))</td>
+            </tr>
+            }
+        </table>
+
+    </div>
+</div>
+
+@using (Html.BeginForm("Index", "Prepayment", FormMethod.Post))
+{
+    <div>
+        <h3>Pembayaran</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <p>
+                    Pembayaran tiket Erlangga Airlines didukung oleh mitra kami, PayDulu.
+                    Setelah menekan tombol di bawah ini, Anda akan dialihkan ke laman PayDulu,
+                    di mana Anda menyelesaikan pembayaran. Setelah transaksi berhasil, Anda akan
+                    dialihkan kembali ke situs Erlangga Airlines di mana Anda dapat mencetak tiket Anda.
+                </p>
+            </div>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-shopping-cart"></i> Bayar <b>@Total.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("id-ID"))</b> melalui <b>PayDulu</b></button>
+            </div>
+        </div>
+    </div>
+}
+
+<!--
 @using (Html.BeginForm("Index", "Payment", FormMethod.Post))
 {
     @Html.ValidationSummary(true)
@@ -42,3 +130,4 @@
         </div>
     </fieldset>
 }
+-->
