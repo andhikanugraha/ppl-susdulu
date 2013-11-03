@@ -11,7 +11,6 @@
 <div class="row">
     <div class="col-md-4">
         <p class="lead">Isilah data penumpang untuk tiket yang Anda pesan pada formulir di sebelah kanan.</p>
-        <button class="btn btn-danger btn-lg">Pesan <i class="glyphicon glyphicon-arrow-right"></i></button>
     </div>
     <div class="col-md-8 ticket-details-all">
         <ul class="nav nav-tabs" id="ticket-tabs">
@@ -136,21 +135,11 @@
                                 Selected = false
                             });
                         }
-                        @Html.DropDownList("class", classList, new { @class = "form-control" })
+                        @Html.DropDownList("class", classList, new { @class = "form-control class" })
                         @Html.ValidationMessageFor(model => model.Class)
                     </div>
-                @*</div>
-                <tr style="display:none">
-                        <label class="control-label col-md-3" for="Price">Harga</label>
-                        <div class="col-md-6">
-                            @{
-                                string prc = "1000000";
-                            }
-                            @Html.Raw("Rp. "+prc+",00")
-                            @Html.Hidden("Price",prc)
-                        </div>
-                </div>
-                <div class="form-group">*@
+                <!-- </div>
+                <div class="form-group"> -->
                     <label class="control-label col-md-3" for="Seat">Tempat duduk</label>
                     <div class="col-md-3">
                         @{
@@ -183,16 +172,26 @@
                     </div>
                 </div>
 
-                <p>
-                    <input name="id_flight1" type="hidden" value="@ViewBag.IDFlight1" />
-                    <input name="id_flight2" type="hidden" value="@ViewBag.IDFlight2" />
-                    <input name="Sum" type="hidden" value="@ViewBag.Sum" />
-                    @*<input type="submit" value="Order" />*@
-                    <br />
-                </p>
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="Price">Harga</label>
+                    <p class="form-control-static col-md-6">
+                        @{
+                            ViewBag.prc = "1000000";
+                        }
+                        Rp <span class="price">@ViewBag.prc</span>
+                        @Html.Hidden("Price", "0", new { @class = "price" })
+                    </p>
+                </div>
             </div>
         }
+            <div class="submit-order-action">
+                <input name="id_flight1" type="hidden" value="@ViewBag.IDFlight1" />
+                <input name="id_flight2" type="hidden" value="@ViewBag.IDFlight2" />
+                <input name="Sum" type="hidden" value="@ViewBag.Sum" />
+                <button class="btn btn-danger btn-lg">Tinjau pesanan <i class="glyphicon glyphicon-arrow-right"></i></button>
+            </div>
         </div>
+
     </div>
 </div>
 }
@@ -212,6 +211,42 @@
             $(this).tab('show');
             this.blur();
         });
+
+        var basePrice = @ViewBag.prc;
+        var factors = {
+            'FIRSTCLASS': 2,
+            'BUSINESS': 1.5,
+            'ECONOMY': 1
+        }
+        getPrice = function(val) {
+            if (factors[val])
+                return factors[val] * basePrice;
+            else
+                return basePrice;
+        }
+
+        // credits: http://stackoverflow.com/a/149099/2102731
+        formatMoney = function(n, c, d, t){
+            var c = isNaN(c = Math.abs(c)) ? 2 : c,
+                d = d == undefined ? ',' : d,
+                t = t == undefined ? '.' : t,
+                s = n < 0 ? '-' : '',
+                i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+                j = (j = i.length) > 3 ? j % 3 : 0;
+            return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+        };
+
+        handleClassChange = function(e) {
+            select = $(this);
+            val = select.val();
+            newPrice = getPrice(val);
+            ticket = select.parents('.tab-pane');
+            priceInput = $('input.price', ticket);
+            priceSpan = $('span.price', ticket);
+            priceInput.val(newPrice);
+            priceSpan.text(formatMoney(newPrice));
+        }
+        $('select.class').click(handleClassChange).each(handleClassChange);
     })
 </script>
 }
