@@ -34,7 +34,7 @@
             <td>@(t.Class == "FIRSTCLASS" ? "Eksekutif" : (t.Class == "BUSINESS" ? "Bisnis" : "Ekonomi"))</td>
             <td>@t.Seat</td>
             <td>
-                <a href="@Url.Action("Print", new { idTiket = t.ID })" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-print"></i>&nbsp;Cetak Tiket</a>
+                <a href="@Url.Action("Print", "Payment", new { idTiket = t.ID })" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-print"></i>&nbsp;Cetak Tiket</a>
             </td>
         </tr>
     }
