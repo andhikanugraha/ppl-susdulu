@@ -2,74 +2,40 @@
     ViewBag.Title = "Daftar Tiket Anda";
 }
 
-<h2>Daftar Tiket Anda</h2>
+<h1 class="page-header">Daftar Tiket Anda</h1>
 
 @model List<SusDulu.Models.Ticket>
 
 <table class="table">
     <tr>
-        <th>ID</th>
-        @*<th>ID Penerbangan</th>*@
-        <th>Alamat surel</th>
-        <th>Nama</th>
-        @*<th>Nama depan</th>
-        <th>Nama tengah</th>
-        <th>Nama belakang</th>*@
-        @*<th>Alamat</th>
-        <th>Nomor telepon</th>
-        <th>Jenis kelamin</th>
-        <th>Kota</th>
-        <th>Provinsi</th>
-        <th>Kode Pos</th>*@
-        <th>Kelas</th>
-        <th>Harga</th>
-        <th>Tempat duduk</th>
-        <th>Nomor penerbangan</th>
-        <th>Waktu keberangkatan</th>
-        <th>Waktu kedatangan</th>
-        <th>Bandara asal</th>
-        <th>Bandara tujuan</th>
         <th></th>
+        <th colspan="2">Keberangkatan</th>
+        <th colspan="2">Kedatangan</th>
+        <th>Nama Penumpang</th>
+        <th>Kelas</th>
+        <th>Kursi</th>
         <th></th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (var t in Model)
     {
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.ID)</td>
-            @*<td>@Html.DisplayFor(modelItem => item.ID_flight)</td>*@
-            <td>@Html.DisplayFor(modelItem => item.Email)</td>
-            <td>@Html.DisplayFor(modelItem => item.First_name) @Html.DisplayFor(modelItem => item.Last_name)</td>
-            @*<td>@Html.DisplayFor(modelItem => item.First_name)</td>
-            <td>@Html.DisplayFor(modelItem => item.Middle_name)</td>
-            <td>@Html.DisplayFor(modelItem => item.Last_name)</td>
-            <td>@Html.DisplayFor(modelItem => item.Address)</td>
-            <td>@Html.DisplayFor(modelItem => item.Phone)</td>
-            <td>@Html.DisplayFor(modelItem => item.Gender)</td>
-            <td>@Html.DisplayFor(modelItem => item.City)</td>
-            <td>@Html.DisplayFor(modelItem => item.Province)</td>
-            <td>@Html.DisplayFor(modelItem => item.Postcode)</td>*@
-            <td>@Html.DisplayFor(modelItem => item.Class)</td>
-            <td>@Html.DisplayFor(modelItem => item.Price)</td>
-            <td>@Html.DisplayFor(modelItem => item.Seat)</td>
-            <td>@Html.DisplayFor(modelItem => item.getPenerbangan().Flight_number)</td>
-            <td>@Html.DisplayFor(modelItem => item.getPenerbangan().Departure_date), @Html.DisplayFor(modelItem => item.getPenerbangan().Departure_time) </td>
-            <td>@Html.DisplayFor(modelItem => item.getPenerbangan().Arrival_date), @Html.DisplayFor(modelItem => item.getPenerbangan().Arrival_time) </td>
-            <td>@Html.DisplayFor(modelItem => item.getPenerbangan().Origin)</td>
-            <td>@Html.DisplayFor(modelItem => item.getPenerbangan().Destination)</td>
+            @{
+        SusDulu.Models.Flight flight = t.GetFlight();
+        var flightNo = (flight != null) ? flight.Flight_number : "";
+        var origin = (flight != null) ? flight.GetOriginAirport() : new SusDulu.Models.Airport();
+        var destination = (flight != null) ? flight.GetDestinationAirport() : new SusDulu.Models.Airport();
+            }
+            <td><i class="glyphicon glyphicon-plane"></i>&nbsp;@flightNo</td>
+            <td>@origin.Name (@origin.ID)</td>
+            <td><i class="glyphicon glyphicon-calendar"></i>&nbsp;@flight.GetDepartureDateTime().ToShortDateString() &nbsp; <i class="glyphicon glyphicon-time"></i>&nbsp; @flight.Departure_time</td>
+            <td>@destination.Name (@destination.ID)</td>
+            <td><i class="glyphicon glyphicon-calendar"></i>&nbsp;@flight.GetArrivalDateTime().ToShortDateString() &nbsp; <i class="glyphicon glyphicon-time"></i>&nbsp; @flight.Arrival_time</td>
+            <td>@t.GetFullName()</td>
+            <td>@(t.Class == "FIRSTCLASS" ? "Eksekutif" : (t.Class == "BUSINESS" ? "Bisnis" : "Ekonomi"))</td>
+            <td>@t.Seat</td>
             <td>
-                @Html.ActionLink("Batalkan", "Delete", new { idTiket = item.ID },
-                new { onclick = "return confirm('Apakah Anda yakin ingin membatalkan tiket ini?');" }) 
-
-                @*@using (Html.BeginForm("YourAction", "YourController", FormMethod.Post))
-                {
-                    <button>Batalkan</button>
-                }*@
+                <a href="@Url.Action("Print", new { idTiket = t.ID })" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-print"></i>&nbsp;Cetak Tiket</a>
             </td>
-            <td>
-                @Html.ActionLink("Cetak", "Print", new { idTiket = item.ID })
-            </td>
-           
-
         </tr>
     }
 </table>
