@@ -4,11 +4,11 @@
 
 @model List<SusDulu.Models.Airport>
 <div class="row front-page">
-    <div class="col-lg-6 front-page-intro">
+    <div class="col-sm-6 hidden-xs front-page-intro">
         <h1>Terbang bersama Anda</h1>
         <p>Erlangga Airlines berkomitmen untuk memberikan pelayanan terbaik dalam setiap perjalanan Anda.</p>
     </div>
-    <div class="col-lg-6 front-page-search">
+    <div class="col-sm-6 col-xs-12 front-page-search">
         <h3>Pesan perjalanan Anda sekarang</h3>
         @if (ViewBag.Message != null)
         {
@@ -24,7 +24,7 @@
         @using (Html.BeginForm("Search", "Home", FormMethod.Post))
         {
             <div class="row">
-                <div class="form-group col-lg-6">
+                <div class="form-group col-sm-6">
                     <label class="control-label">Asal</label>
                     <select class="form-control" name="Origin">
                         @foreach (var item in Model)
@@ -33,7 +33,7 @@
                         }
                     </select>
                 </div>
-                <div class="form-group col-lg-6">
+                <div class="form-group col-sm-6">
                     <label class="control-label">Tujuan</label>
                     <select class="form-control" name="Destination">
                         @foreach (var item in Model)
@@ -48,17 +48,23 @@
                 <label class="checkbox-inline"><input type="radio" name="TripType" value="round-trip" id="returnTripRadio" checked> Pulang pergi</label>
             </div>
             <div class="row">
-                <div class="form-group col-lg-5">
+                <div class="form-group col-sm-5">
                     <label class="control-label">Keberangkatan</label>
                     <input type="date" name="Departure_date1" class="form-control" />
                 </div>
-                <div class="form-group col-lg-5" id="returnTripDate">
+                <div class="form-group col-sm-5" id="returnTripDate">
                     <label class="control-label">Kepulangan</label>
                     <input type="date" name="Departure_date2" class="form-control" />
                 </div>
-                <div class="form-group col-lg-2">
+                <div class="form-group col-sm-2">
                     <label class="control-label">Jumlah</label>
-                    <input type="number" name="Sum" class="form-control" />
+                    <select name="Sum" class="form-control">
+                    @for (int i = 1; i < 10; ++i)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                    </select>
+                    @*<input type="number" name="Sum" class="form-control" />*@
                 </div>
             </div>
             <div class="form-group pull-right">
@@ -70,7 +76,11 @@
 
 @section Scripts {
     <script>
-        $('input[type=date]').datepicker();
+        if ($('input[type=date]').prop('type') != 'date') {
+            $('input[type=date]')
+                .attr('type', 'text')
+                .datepicker({ dateFormat: "yy-mm-dd" });
+        }
         $('#oneWayTripRadio').change(function () {
             $(this).is(':checked') ?
                 $('#returnTripDate input').attr('disabled', 'disabled') :
