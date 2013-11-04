@@ -75,6 +75,23 @@ namespace SusDulu.Models
             this.Price = Price;
             this.Seat = Seat;
         }
+
+        public string GetFullName()
+        {
+            string fullName = First_name;
+            if (Middle_name.Length > 0)
+                fullName += " " + Middle_name;
+            if (Last_name.Length > 0)
+                fullName += " " + Last_name;
+
+            return fullName;
+        }
+
+        public Flight GetFlight()
+        {
+            var db = new DefaultConnection();
+            return db.Flights.Find(ID_flight);
+        }
     }
 
     public class FlightOption

@@ -164,6 +164,17 @@ namespace SusDulu.Controllers
             return View();
         }
 
+        public ActionResult PaymentGateway(int total, string origin, string destination, int pax)
+        {
+            string paymentGateway = System.Configuration.ConfigurationManager.AppSettings.Get("paymentGateway");
+            string gatewayTemplate = paymentGateway + "/pay/erlangga?total={0}&origin={1}&destination={2}&pax={3}&handler={4}";
+            string handlerUrl = Url.Action("Index", "Payment", null, Request.Url.Scheme);
+
+            string to = string.Format(gatewayTemplate, total, origin, destination, pax, handlerUrl);
+
+            return Redirect(to);
+        }
+
         private bool HasDuplicates(List<string> array)
         {
             List<string> vals = new List<string>();
