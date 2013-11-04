@@ -2,8 +2,57 @@
     ViewBag.Title = "Pencetakan Tiket";
 }
 
+@if (ViewBag.Error)
+{
+<h1 class="page-header">Pembayaran Gagal</h1>
+<p class="lead">Mohon maaf, pemesanan Anda gagal kami proses. Silakan mengulang kembali pesanan Anda.</p>
+<a href="@Url.Action("Index", "Home")" class="btn btn-lg btn-danger">Kembali ke beranda</a>
+}
+else
+{
+<h1 class="page-header">Pembayaran Berhasil</h1>
+
+<p class="lead">Pembayaran Anda telah kami terima. Silakan cetak tiket Anda di bawah ini. Terima kasih telah menggunakan jasa Erlangga Airlines.</p>
+
 <h3>Cetak Tiket Anda</h3>
-@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th colspan="2">Keberangkatan</th>
+        <th colspan="2">Kedatangan</th>
+        <th>Nama Penumpang</th>
+        <th>Kelas</th>
+        <th>Kursi</th>
+        <th></th>
+    </tr>
+    @foreach (SusDulu.Models.Ticket t in ViewBag.tickets)
+    {
+    <tr>
+        @{
+            SusDulu.Models.Flight flight = t.GetFlight();
+            var flightNo = (flight != null) ? flight.Flight_number : "";
+            var origin = (flight != null) ? flight.GetOriginAirport() : new SusDulu.Models.Airport();
+            var destination = (flight != null) ? flight.GetDestinationAirport() : new SusDulu.Models.Airport();
+        }
+        <td><i class="glyphicon glyphicon-plane"></i>&nbsp;@flightNo</td>
+        <td>@origin.Name (@origin.ID)</td>
+        <td><i class="glyphicon glyphicon-calendar"></i>&nbsp;@flight.GetDepartureDateTime().ToShortDateString() &nbsp; <i class="glyphicon glyphicon-time"></i>&nbsp; @flight.Departure_time</td>
+        <td>@destination.Name (@destination.ID)</td>
+        <td><i class="glyphicon glyphicon-calendar"></i>&nbsp;@flight.GetArrivalDateTime().ToShortDateString() &nbsp; <i class="glyphicon glyphicon-time"></i>&nbsp; @flight.Arrival_time</td>
+        <td>@t.GetFullName()</td>
+        <td>@(t.Class == "FIRSTCLASS" ? "Eksekutif" : (t.Class == "BUSINESS" ? "Bisnis" : "Ekonomi"))</td>
+        <td>@t.Seat</td>
+        <td>
+            <a href="@Url.Action("Print", new { idTiket = t.ID })" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-print"></i>&nbsp;Cetak Tiket</a>
+        </td>
+    </tr>
+    }
+</table>
+}
+
+
+@*@using (Html.BeginForm("Index", "Home", FormMethod.Post))
 {
     @Html.ValidationSummary(true)
     
@@ -16,4 +65,4 @@
         </h4>
     }
 
-}
+}*@
