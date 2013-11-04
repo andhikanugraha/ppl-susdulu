@@ -76,20 +76,20 @@
 
 @section Scripts {
     <script>
-        if ($('input[type=date]').prop('type') != 'date') {
-            $('input[type=date]')
-                .attr('type', 'text')
-                .datepicker({ dateFormat: "yy-mm-dd" });
-        }
-        $('#oneWayTripRadio').change(function () {
-            $(this).is(':checked') ?
-                $('#returnTripDate input').attr('disabled', 'disabled') :
-                $('#returnTripDate input').removeAttr('disabled');
+        $(function () {
+            if ($('input[type=date]').prop('type') != 'date') {
+                $('input[type=date]').attr('type', 'text').datepicker({ dateFormat: "yy-mm-dd" });
+            }
+            $('#oneWayTripRadio').change(function () {
+                $(this).is(':checked') ?
+                    $('#returnTripDate input').attr('disabled', 'disabled') :
+                    $('#returnTripDate input').removeAttr('disabled');
+            });
+            $('#returnTripRadio').change(function () {
+                $(this).is(':checked') ?
+                    $('#returnTripDate input').removeAttr('disabled') :
+                    $('#returnTripDate input').attr('disabled', 'disabled');
+            })
         });
-        $('#returnTripRadio').change(function () {
-            $(this).is(':checked') ?
-                $('#returnTripDate input').removeAttr('disabled') :
-                $('#returnTripDate input').attr('disabled', 'disabled');
-        })
     </script>
 }

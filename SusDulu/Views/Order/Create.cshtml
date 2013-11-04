@@ -246,7 +246,7 @@
             priceInput.val(newPrice);
             priceSpan.text(formatMoney(newPrice));
         }
-        $('select.class').click(handleClassChange).each(handleClassChange);
+        $('select.class').change(handleClassChange).each(handleClassChange);
     })
 </script>
 }
